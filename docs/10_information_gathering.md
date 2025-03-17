@@ -5,7 +5,7 @@
 - **Whois**: `whois <domain/ip> -h <whois_server>`
 - **Google dorks**: `site:` , `filetype:`,  `intitle:`, [DorkSearch](https://dorksearch.com/) or [GHDB](https://www.exploit-db.com/google-hacking-database)
 - [**Netcraft**](https://searchdns.netcraft.com/): DNS analyzer
-- **Open-Source code**: 
+- **Open-Source code**:
 	- `path:<word>` inside a Github repo to search files with that word.
 	- Tools: [Gitrob](https://github.com/michenriksen/gitrob), [Gitlkeaks](https://github.com/zricethezav/gitleaks)
 - [**Shodan**](https://shodan.io): `hostname:<name>`

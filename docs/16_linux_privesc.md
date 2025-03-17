@@ -51,6 +51,9 @@ lsmod
 /sbin/modinfo <module>
 ```
 
+!!! tip
+    🍪 Try to switch users using username as pass
+
 ## User trails
 
 ```shell

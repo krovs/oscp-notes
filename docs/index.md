@@ -165,6 +165,13 @@ net user <user> <newpass>
 
 ```shell
 useradd -u <UID> -g <group> <uname>
+# switch to user
+su - <username>
+# without password
+sudo su - <username>
+# switch to root
+su -
+sudo su -
 ```
 
 ### Network Connections
