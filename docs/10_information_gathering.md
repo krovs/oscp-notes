@@ -82,7 +82,8 @@ tshark -i tun0 -Y "ip.addr == <local_ip> && tcpdstport == 80" 2>/dev/null
 
 ### FTP - 21
 
-> 🍪 Try **anonymous:anonymous**
+!!! tip
+    🍪 Try **anonymous:anonymous**
 
 ```shell
 ftp <ip>

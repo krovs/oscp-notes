@@ -13,6 +13,9 @@ xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path>
 
 ## File Transfers
 
+!!! warning
+    Beware of reflected ports!
+
 ### HTTP Server
 
 ```shell
