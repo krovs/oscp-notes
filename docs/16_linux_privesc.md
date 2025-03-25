@@ -32,6 +32,8 @@ uname -a
 
 # processes
 ps aux
+# wide
+ps auxww
 # tree
 ps axjf
 

