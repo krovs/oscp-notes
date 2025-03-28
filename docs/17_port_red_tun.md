@@ -1,6 +1,6 @@
 # 🚢 Port Redirection and Tunneling
 
-## Ping sweep
+## Ping Sweep
 
 ```shell
 # linux
@@ -13,7 +13,7 @@ for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "Reply"
 1..254 | % {"172.16.6.$($_): $(Test-Connection -count 1 -comp 172.16.6.$($_) -quiet)"}
 ```
 
-## Port redirection
+## Port Redirection
 
 ### Socat
 
@@ -23,25 +23,35 @@ socat TCP-LISTEN:<local_port>,fork TCP:<ip>:<port>
 
 ## Port Forwarding
 
-### SSH Local port forwarding
+### SSH Local Port Forwarding
 
 ```shell
 # forwards local machine port 8080 to a remote machine's port 80
 ssh -L 8080:remote_host:80 user@ssh_server
 ```
 
-### SSH Remote port forwarding
+### SSH Remote Port Forwarding
 
 ```shell
 # forwards a remote machine's port 80 to the local machine's port 9090
 ssh -R 127.0.0.1:9090:target:80 user@kali_machine
 ```
 
+### Chisel
+
+```shell
+# create server 
+chisel server --port 8080 --reverse
+
+# create client on remote machine
+chisel client <local_host>:8080 R:<local_port>:localhost:<remote_port>
+```
+
 ## Tunneling
 
 ### Ligolo
 
-> https://github.com/nicocha30/ligolo-ng/releases
+> <https://github.com/nicocha30/ligolo-ng/releases>
 
 ```shell
 # create ligolo interface
@@ -81,7 +91,7 @@ sudo proxychains <command>
 ./chisel client <local_host>:8080 R:socks R:4545:172.16.80.240:80
 ```
 
-### SSH Dynamic port forwarding
+### SSH Dynamic Port Forwarding
 
 ```shell
 # creates a dynamic tunnel between local host and target
@@ -94,7 +104,7 @@ socks5 127.0.0.1 9050
 sudo proxychains <command>
 ```
 
-### DNS tunneling
+### DNS Tunneling
 
 ```shell
 dnscat2-server feline.corp

