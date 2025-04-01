@@ -198,6 +198,13 @@ kill -9 <PID>
 ```shell
 # create keys
 ssh-keygen -t rsa -b 4096
+
+# transfer data to
+scp <file> <user>@<ip>:<path>
+# transfer data from
+scp <user>@<ip>:<path> <file>
+# use legacy SCP protocol instead of SFTP
+scp -O <file> <user>@<ip>:<path>
 ```
 
 ### Misc
@@ -205,6 +212,12 @@ ssh-keygen -t rsa -b 4096
 ```shell
 # reduce binary size (useful for binaries that are going to be transferred)
 upx <bin_path>
+
+# find printable strings in a file
+strings
+
+# display dynamic library calls of a process
+ltrace
 ```
 
 ## VPN
