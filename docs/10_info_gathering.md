@@ -469,3 +469,19 @@ nxc winrm <ip> -d <domain> -u userlist -p passwordlist -x "whoami"
 evil-winrm -i <ip>/<domain> -u <user> -p <pass>
 evil-winrm -i <ip>/<domain> -u <user> -H <hash> 
 ```
+
+## Redis - 6379
+
+!!! tip
+    🍪 [Rogue server](https://book.hacktricks.wiki/en/network-services-pentesting/6379-pentesting-redis.html?highlight=redis#interactive-shell) could work for some instances >= 5.0.5 too!
+
+```shell
+nmap --script redis-info -sV -p 6379 <ip>
+
+redis-cli -h <ip>
+# commands
+info
+client list
+config get *
+keys *
+```

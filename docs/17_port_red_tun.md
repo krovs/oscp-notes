@@ -27,14 +27,14 @@ socat TCP-LISTEN:<local_port>,fork TCP:<ip>:<port>
 
 ```shell
 # forwards local machine port 8080 to a remote machine's port 80
-ssh -L 8080:remote_host:80 user@ssh_server
+ssh -L 8080:<remote_host>:80 user@ssh_server
 ```
 
 ### SSH Remote Port Forwarding
 
 ```shell
 # forwards a remote machine's port 80 to the local machine's port 9090
-ssh -R 127.0.0.1:9090:target:80 user@kali_machine
+ssh -R 127.0.0.1:9090:<target>:80 user@kali_machine
 ```
 
 ### Chisel

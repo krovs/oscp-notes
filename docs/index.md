@@ -145,6 +145,9 @@ taskkill /F /IM chisel.exe
 # or by PID
 tasklist | findstr chisel.exe
 taskkill /PID <PID> /F
+
+# add tools to a restricted shell
+set PATH=%PATH%;C:\Windows\System32;C:\Windows\System32\WindowsPowerShell\v1.0\;
 ```
 
 ### User Management
