@@ -87,7 +87,7 @@ xfreerdp3 /u:user /p:pass /v:<ip> +clipboard
 xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path>
 ```
 
-### SSH
+## SSH
 
 ```shell
 # create keys
@@ -101,7 +101,7 @@ scp <user>@<ip>:<path> <file>
 scp -O <file> <user>@<ip>:<path>
 ```
 
-### Misc
+## Misc
 
 ```shell
 # reduce binary size (useful for binaries that are going to be transferred)
