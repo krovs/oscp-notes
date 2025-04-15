@@ -116,149 +116,9 @@ ltrace
 
 ## OS Commands
 
-### System Control
-
-#### Linux
-
-```shell
-sudo reboot
-sudo shutdown -r now
-# shutdown
-sudo shutdown -h now
-# traditional restart
-sudo init 6
-```
-
-#### Windows
-
-```shell
-# restart and shutdown
-shutdown /r /t 0
-shutdown /s /t 0
-
-Restart-Computer -Force
-Stop-Computer
-```
-
-### Process Management
-
-#### Linux
-
-```shell
-ps aux
-ps auxww
-kill <pid>
-# force
-kill -9 <pid>
-killall <process_name>
-# find process pid by name
-pgrep process_name
-```
-
-#### Windows
-
-```shell
-tasklist
-wmic process list full
-# find specific
-tasklist | findstr <program.exe>
-
-# force kill process by name
-taskkill /F /IM <program.exe>
-# by id
-taskkill /PID <pid_number> /F
-
-Get-Process
-# force kill proccess by id
-Stop-Process -Id PID -Force
-Stop-Process -Name "process" -Force
-```
-
-### File Operations
-
-#### Linux
-
-```shell
-find / -name filename 2>/dev/null
-# find text in files
-grep -r "text" /path 2>/dev/null
-
-# compress/extract files
-tar -czvf archive.tar.gz /path
-tar -xzvf archive.tar.gz
-```
-
-#### Windows
-
-```shell
-dir /s filename 2>nul
-Get-ChildItem -Recurse -Filter *.txt -ErrorAction SilentlyContinue
-# find text in files
-findstr /s "text" * 2>nul
-Select-String -Path *.txt -Pattern "text" -ErrorAction SilentlyContinue
-
-# copy dirs recursively
-xcopy /s /e source destination /Y 2>nul
-Copy-Item -Recurse source destination -Force
-# move
-move source destination
-# delete
-del filename /Q
-Remove-Item -Recurse -Force path
-```
-
-### Networking
-
-#### Linux
-
-```shell
-# show interfaces
-ip a
-ifconfig
-# list listening connections
-ss -ntplu
-netstat -ntplu
-# test connectivity
-ping host
-# trace path
-traceroute host
-# DNS lookup
-dig domain
-nslookup domain
-# kill connection
-fuser -k <port>/tcp
-fuser -k <port>/udp
-# routing table
-ip route show
-# log incoming traffic on a specific port
-sudo tcpdump -nvvvXi tun0 tcp port 8080
-```
-
-#### Windows
-
-```shell
-# show network config
-ipconfig /all
-# connections and listening ports
-netstat -ano
-# show ip addresses
-Get-NetIPAddress
-# show tcp connections
-Get-NetTCPConnection
-# dns lookup
-nslookup domain
-Resolve-DnsName domain
-# trace path
-tracert host
-# test connectivity
-Test-NetConnection host -Port port
-# routing table
-route print
-```
-
 ### System Information
 
-#### Linux
+**Linux:**
 
 ```shell
 # kernel info
@@ -267,7 +127,7 @@ uname -a
 lsb_release -a
 ```
 
-#### Windows
+**Windows:**
 
 ```shell
 # system info
@@ -290,7 +150,7 @@ Get-ACL "<path>"
 
 ### User Management
 
-#### Linux
+**Linux:**
 
 ```shell
 # show user info
@@ -315,13 +175,12 @@ passwd username
 usermod -aG sudo username
 
 # show who is currently logged in
-who
-w
+who|w
 # show last logins
 last
 ```
 
-#### Windows
+**Windows:**
 
 ```shell
 # show current user
@@ -352,7 +211,190 @@ net localgroup Administrators username /add
 runas /user:domain\username cmd
 ```
 
-#### Error Suppression
+### File Operations
+
+**Linux:**
+
+```shell
+find / -name filename 2>/dev/null
+# find text in files
+grep -r "text" /path 2>/dev/null
+
+# compress/extract files
+tar -czvf archive.tar.gz /path
+tar -xzvf archive.tar.gz
+```
+
+**Windows:**
+
+```shell
+dir /s filename 2>nul
+Get-ChildItem -Recurse -Filter *.txt -ErrorAction SilentlyContinue
+# find text in files
+findstr /s "text" * 2>nul
+Select-String -Path *.txt -Pattern "text" -ErrorAction SilentlyContinue
+
+# copy dirs recursively
+xcopy /s /e source destination /Y 2>nul
+Copy-Item -Recurse source destination -Force
+# move
+move source destination
+# delete
+del filename /Q
+Remove-Item -Recurse -Force path
+```
+
+### Process Management
+
+**Linux:**
+
+```shell
+ps aux
+ps auxww
+kill <pid>
+# force
+kill -9 <pid>
+killall <process_name>
+# find process pid by name
+pgrep process_name
+```
+
+**Windows:**
+
+```shell
+tasklist
+wmic process list full
+# find specific
+tasklist | findstr <program.exe>
+
+# force kill process by name
+taskkill /F /IM <program.exe>
+# by id
+taskkill /PID <pid_number> /F
+
+Get-Process
+# force kill process by id
+Stop-Process -Id PID -Force
+Stop-Process -Name "process" -Force
+```
+
+### Networking
+
+**Linux:**
+
+```shell
+# show interfaces
+ip a
+ifconfig
+# list listening connections
+ss -ntplu
+netstat -ntplu
+# test connectivity
+ping host
+# trace path
+traceroute host
+# DNS lookup
+dig domain
+nslookup domain
+# kill connection
+fuser -k <port>/tcp
+fuser -k <port>/udp
+# routing table
+ip route show
+# log incoming traffic on a specific port
+sudo tcpdump -nvvvXi tun0 tcp port 8080
+```
+
+**Windows:**
+
+```shell
+# show network config
+ipconfig /all
+# connections and listening ports
+netstat -ano
+# show ip addresses
+Get-NetIPAddress
+# show tcp connections
+Get-NetTCPConnection
+# dns lookup
+nslookup domain
+Resolve-DnsName domain
+# trace path
+tracert host
+# test connectivity
+Test-NetConnection host -Port port
+# routing table
+route print
+```
+
+### Service Management
+
+**Linux:**
+
+```shell
+# systemd distros
+systemctl status service_name
+systemctl start|stop|restart service_name
+# enable service to start at boot
+systemctl enable|disable service_name
+
+# no systemd
+service service_name status
+service service_name start|stop|restart
+
+# other
+ls /etc/init.d/
+/etc/init.d/service_name start|stop|restart
+```
+
+**Windows:**
+
+```shell
+sc query service_name
+Get-Service service_name
+
+sc start|stop service_name
+net start|stop service_name
+Start-Service service_name
+Stop-Service service_name
+Restart-Service service_name
+
+# set service to start auto
+sc config service_name start=auto
+Set-Service service_name -StartupType Automatic
+Set-Service service_name -StartupType Disabled
+# disable service
+sc config service_name start=disabled
+
+# list all running services
+Get-Service | Where-Object {$_.Status -eq "Running"}
+```
+
+### System Control
+
+**Linux:**
+
+```shell
+sudo reboot
+sudo shutdown -r now
+# shutdown
+sudo shutdown -h now
+# traditional restart
+sudo init 6
+```
+
+**Windows:**
+
+```shell
+# restart and shutdown
+shutdown /r /t 0
+shutdown /s /t 0
+
+Restart-Computer -Force
+Stop-Computer
+```
+
+### Error Suppression
 
 #### Windows
 
