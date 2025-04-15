@@ -106,18 +106,21 @@ AC4ARgBsAHUAcwBoACgAKQB9ADsAJABjAGwAaQBlAG4AdAAuAEMAbABvAHMAZQAoACkA","7")
 
 ## Golden Ticket
 
+Is a forged Kerberos Ticket Granting Ticket (TGT) that allows an attacker to gain complete control of the Active Directory domain because it grants them the ability to request tickets for any service.
+
 ```mermaid
 sequenceDiagram
-    participant Attacker
-    participant Domain Controller (KDC)
-    participant Target System
+    participant A as Attacker
+    participant KDC as KDC
+    participant S as Service
 
-    Attacker->>Attacker: Extracts krbtgt NTLM hash
-    Attacker->>Attacker: Creates forged TGT (Golden Ticket)
-    Attacker->>Target System: Uses TGT to request service ticket (TGS-REQ)
-    Target System->>Domain Controller (KDC): Verifies TGT
-    Domain Controller (KDC)-->>Target System: Issues TGS
-    Target System-->>Attacker: Grants unauthorized access
+    Note over A: Attacker obtains KRBTGT key (offline)
+    A->>A: Forge Golden Ticket (TGT) with custom claims
+    A->>KDC: TGS-REQ (with forged TGT)
+    KDC-->>A: TGS-REP (service ticket)
+    A->>S: AP-REQ (with forged service ticket and authenticator)
+    S-->>A: AP-REP (access granted)
+
 ```
 
 ```shell
@@ -154,10 +157,11 @@ To get the parent domain (if needed) and use it in `-extra-sid`:
 
 ## Shadow Copies
 
-> **Requirements**:
-> - Admins or SYSTEM privs
-> - Access to a DC (ntds.dit is only on DC)
-> - Regular user with **SeBackupPrivilege** (Can use robocopy to get the file from the copy)
+**Requirements**:
+
+- Admins or SYSTEM privs
+- Access to a DC (ntds.dit is only on DC)
+- Regular user with **SeBackupPrivilege** (Can use robocopy to get the file from the copy)
 
 ### vshadow
 
