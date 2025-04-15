@@ -396,12 +396,12 @@ Stop-Computer
 
 ### Error Suppression
 
-#### Windows
+**Windows:**
 
 - **CMD**: Append `2>nul` to suppress error messages
 - **PowerShell**: Add `-ErrorAction SilentlyContinue` parameter to cmdlets
 
-#### Linux
+**Linux:**
 
 - Append `2>/dev/null` to suppress error messages only
 - Append `&>/dev/null` to suppress both standard output and errors
