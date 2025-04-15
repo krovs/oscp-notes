@@ -1,16 +1,5 @@
 # 🦩 General
 
-## Connecting to RDP
-
-```shell
-# add resolution support
-xfreerdp3 /u:user /p:pass /v:<ip> /dynamic-resolution
-# add clipboard support
-xfreerdp3 /u:user /p:pass /v:<ip> +clipboard
-# add a share to easily transfer files
-xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path> 
-```
-
 ## File Transfers
 
 !!! tip
@@ -87,113 +76,15 @@ wget http://<ip>:<port>/<file>
 curl -O http://<ip>:<port>/<file>
 ```
 
-## Git
-
-> [git-dumper](https://github.com/arthaud/git-dumper)
+## Connecting to RDP
 
 ```shell
-# dump git repo from url
-git-dumper <url>/.git ./website
-
-# show commits on a branch
-git log
-# show commit details and changes
-git show <commit>
-```
-
-## AWS
-
-!!! warning ""
-    Out of scope
-
-Setup credentials if you find access keys
-
-```shell
-aws configure
-```
-
-### S3
-
-```shell
-# list public buckets without credentials
-aws s3 ls s3://<bucket>/ --endpoint-url <url> --no-sign-request
-
-# download a bucket
-aws s3 cp s3://<bucket> ./
-
-# check bucket policy
-aws s3api get-bucket-policy --bucket <bucket> --endpoint-url <url> --no-sign-request
-
-# upload a file to a bucket
-aws s3 cp <file> s3://<bucket>/ --endpoint-url <url> --no-sign-request
-```
-
-## Windows
-
-### Utils
-
-```shell
-# search for a word in a file 
-Select-String -Path "sb.txt" -Pattern "password"
-
-# enumerate permissions
-icacls "<path>"
-Get-ACL "<path>"
-
-# kill a process
-taskkill /F /IM chisel.exe
-# or by PID
-tasklist | findstr chisel.exe
-taskkill /PID <PID> /F
-
-# add tools to a restricted shell
-set PATH=%PATH%;C:\Windows\System32;C:\Windows\System32\WindowsPowerShell\v1.0\;
-```
-
-### User Management
-
-```shell
-# enumerate users and groups
-net user <user>
-net localgroup <group>
-
-# create local user and add it to a group
-net user <user> <pass> /add
-net localgroup <group> <user> /add
-
-# change local user's password
-net user <user> <newpass>
-```
-
-## Linux
-
-### Users
-
-```shell
-useradd -u <UID> -g <group> <uname>
-# switch to user
-su - <username>
-# without password
-sudo su - <username>
-# switch to root
-su -
-sudo su -
-```
-
-### Network Connections
-
-```shell
-# log incoming traffic on a specific port
-sudo tcpdump -nvvvXi tun0 tcp port 8080
-
-# network connections
-netstat -antp # check tcp conns on all sockets
-ss -ntplu # check tcp and udp listening conns
-
-# kill connection
-fuser -k <port>/tcp
-fuser -k <port>/udp
-kill -9 <PID>
+# add resolution support
+xfreerdp3 /u:user /p:pass /v:<ip> /dynamic-resolution
+# add clipboard support
+xfreerdp3 /u:user /p:pass /v:<ip> +clipboard
+# add a share to easily transfer files
+xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path>
 ```
 
 ### SSH
@@ -221,6 +112,297 @@ strings
 
 # display dynamic library calls of a process
 ltrace
+```
+
+## OS Commands
+
+### System Control
+
+#### Linux
+
+```shell
+sudo reboot
+sudo shutdown -r now
+# shutdown
+sudo shutdown -h now
+# traditional restart
+sudo init 6
+```
+
+#### Windows
+
+```shell
+# restart and shutdown
+shutdown /r /t 0
+shutdown /s /t 0
+
+Restart-Computer -Force
+Stop-Computer
+```
+
+### Process Management
+
+#### Linux
+
+```shell
+ps aux
+ps auxww
+kill <pid>
+# force
+kill -9 <pid>
+killall <process_name>
+# find process pid by name
+pgrep process_name
+```
+
+#### Windows
+
+```shell
+tasklist
+wmic process list full
+# find specific
+tasklist | findstr <program.exe>
+
+# force kill process by name
+taskkill /F /IM <program.exe>
+# by id
+taskkill /PID <pid_number> /F
+
+Get-Process
+# force kill proccess by id
+Stop-Process -Id PID -Force
+Stop-Process -Name "process" -Force
+```
+
+### File Operations
+
+#### Linux
+
+```shell
+find / -name filename 2>/dev/null
+# find text in files
+grep -r "text" /path 2>/dev/null
+
+# compress/extract files
+tar -czvf archive.tar.gz /path
+tar -xzvf archive.tar.gz
+```
+
+#### Windows
+
+```shell
+dir /s filename 2>nul
+Get-ChildItem -Recurse -Filter *.txt -ErrorAction SilentlyContinue
+# find text in files
+findstr /s "text" * 2>nul
+Select-String -Path *.txt -Pattern "text" -ErrorAction SilentlyContinue
+
+# copy dirs recursively
+xcopy /s /e source destination /Y 2>nul
+Copy-Item -Recurse source destination -Force
+# move
+move source destination
+# delete
+del filename /Q
+Remove-Item -Recurse -Force path
+```
+
+### Networking
+
+#### Linux
+
+```shell
+# show interfaces
+ip a
+ifconfig
+# list listening connections
+ss -ntplu
+netstat -ntplu
+# test connectivity
+ping host
+# trace path
+traceroute host
+# DNS lookup
+dig domain
+nslookup domain
+# kill connection
+fuser -k <port>/tcp
+fuser -k <port>/udp
+# routing table
+ip route show
+# log incoming traffic on a specific port
+sudo tcpdump -nvvvXi tun0 tcp port 8080
+```
+
+#### Windows
+
+```shell
+# show network config
+ipconfig /all
+# connections and listening ports
+netstat -ano
+# show ip addresses
+Get-NetIPAddress
+# show tcp connections
+Get-NetTCPConnection
+# dns lookup
+nslookup domain
+Resolve-DnsName domain
+# trace path
+tracert host
+# test connectivity
+Test-NetConnection host -Port port
+# routing table
+route print
+```
+
+### System Information
+
+#### Linux
+
+```shell
+# kernel info
+uname -a
+# distro info
+lsb_release -a
+```
+
+#### Windows
+
+```shell
+# system info
+systeminfo
+Get-ComputerInfo
+# os details
+wmic os get version
+Get-WmiObject Win32_OperatingSystem
+# show drives
+Get-PSDrive
+# show tasks
+schtasks
+Get-ScheduledTask
+# recent system events
+Get-EventLog -LogName System -Newest 10
+# path permissions
+icacls "<path>"
+Get-ACL "<path>"
+```
+
+### User Management
+
+#### Linux
+
+```shell
+# show user info
+id <username>
+whoami
+groups <username>
+# switch to user
+su - <username>
+sudo su - <username>
+# switch to root
+su -
+sudo su -
+# check user sudo permissions
+sudo -l
+
+# create/delete/change pass users
+useradd -m username
+useradd -u <UID> -g <group> <uname>
+userdel -r username
+passwd username
+# add to group
+usermod -aG sudo username
+
+# show who is currently logged in
+who
+w
+# show last logins
+last
+```
+
+#### Windows
+
+```shell
+# show current user
+whoami /all
+# list all users
+net user
+Get-LocalUser
+# show user details
+net user username
+# create/delete/change pass user
+net user username password /add
+New-LocalUser -Name "username" -Password (ConvertTo-SecureString "password" -AsPlainText -Force)
+net user username /delete
+net user username newpassword
+# list all groups
+net localgroup
+Get-LocalGroup
+# show members
+net localgroup groupname
+Get-LocalGroupMember "Administrators"
+# add/delete user to group
+net localgroup groupname username /add
+Add-LocalGroupMember -Group "Administrators" -Member "username"
+net localgroup groupname username /delete
+net localgroup Administrators username /add
+
+# run command as a different user
+runas /user:domain\username cmd
+```
+
+#### Error Suppression
+
+#### Windows
+
+- **CMD**: Append `2>nul` to suppress error messages
+- **PowerShell**: Add `-ErrorAction SilentlyContinue` parameter to cmdlets
+
+#### Linux
+
+- Append `2>/dev/null` to suppress error messages only
+- Append `&>/dev/null` to suppress both standard output and errors
+
+## Git
+
+> [git-dumper](https://github.com/arthaud/git-dumper)
+
+```shell
+# dump git repo from url
+git-dumper <url>/.git ./website
+
+# show commits on a branch
+git log
+# show commit details and changes
+git show <commit>
+```
+
+## AWS
+
+!!! warning ""
+    Out Of Scope
+
+Setup credentials if you find access keys
+
+```shell
+aws configure
+```
+
+### S3
+
+```shell
+# list public buckets without credentials
+aws s3 ls s3://<bucket>/ --endpoint-url <url> --no-sign-request
+
+# download a bucket
+aws s3 cp s3://<bucket> ./
+
+# check bucket policy
+aws s3api get-bucket-policy --bucket <bucket> --endpoint-url <url> --no-sign-request
+
+# upload a file to a bucket
+aws s3 cp <file> s3://<bucket>/ --endpoint-url <url> --no-sign-request
 ```
 
 ## VPN
