@@ -423,7 +423,7 @@ git show <commit>
 ## AWS
 
 !!! warning ""
-    Out Of Scope
+    Out of Scope
 
 Setup credentials if you find access keys
 

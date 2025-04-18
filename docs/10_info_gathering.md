@@ -340,6 +340,21 @@ querygroup <group>
 querydispinfo
 ```
 
+#### RPC RID Cycling Attack
+
+If we can connect but have no permissions to enum, maybe we can enum by RID Cycling.
+
+```shell
+# first, enum administrator
+> rpcclient -U "guest%" <ip> -c 'lookupnames administrator'
+administrator S-1-5-21......-500
+# the rid is 500, so we can lookupsids increasing the rid
+> rpcclient -U "guest%" <ip> -c 'lookupsids S-1-5-21......-501'
+> rpcclient -U "guest%" <ip> -c 'lookupsids S-1-5-21......-502'
+# this can be automated 
+seq 400 2000 | xargs -P 50 -I {} rpcclient -U "guest%" <ip> -c 'lookupsids S-1-5-21......-{}'
+```
+
 ### IMAP - 143, 993 (TLS)
 
 > [Commands examples](https://donsutherland.org/crib/imap)
@@ -385,7 +400,7 @@ hydra snmp://192.168.188.149 -P /usr/share/seclists/Discovery/SNMP/snmp.txt
 
 ### LDAP - 389, 636 (TSL)
 
-> [Windapsearch](https://github.com/ropnop/windapsearch)
+> [go-windapsearch](https://github.com/ropnop/go-windapsearch)
 
 ```shell
 # get users info
@@ -406,15 +421,15 @@ ldapsearch -x -H ldap://<ip> -D "<domain>\<user>" -W -b "DC=<domain>,DC=<tld>" "
 
 # windapsearch.py
 # get all users
-python3 windapsearch.py --dc-ip <ip> -u <username> -p <password> -U
+windapsearch -d <domain> -u <username> -p <password> -m users
 # get all domain admin members
-python3 windapsearch.py --dc-ip <ip> -u <username> -p <password> --da
+windapsearch -d <domain> -u <username> -p <password> -m members -s 'domain admin'
 # get groups
-python3 windapsearch.py --dc-ip <IP address> -u <username> -p <password> -G
+windapsearch -d <domain> -u <username> -p <password> -m groups
 # get computers
-python3 windapsearch.py --dc-ip <IP address> -u <username> -p <password> -C
+windapsearch -d <domain> -u <username> -p <password> -m computers
 # get privileged users
-python3 windapsearch.py --dc-ip <IP address> -u <username> -p <password> -PU
+windapsearch -d <domain> -u <username> -p <password> -m privileged-users
 ```
 
 ### MSSQL - 1433
@@ -444,21 +459,6 @@ nxc rdp <ip> -u <user> -p <pass>
 # bruteforce
 hydra rdp://<ip> -L <userlist> -P <wordlist>
 patator rdp_login host=<ip> user='administrator' password=FILE0 0=<wordlist>
-```
-
-#### RPC RID Cycling Attack
-
-If we can connect but have no permissions to enum, maybe we can enum by RID Cycling.
-
-```shell
-# first, enum administrator
-> rpcclient -U "guest%" <ip> -c 'lookupnames administrator'
-administrator S-1-5-21......-500
-# the rid is 500, so we can lookupsids increasing the rid
-> rpcclient -U "guest%" <ip> -c 'lookupsids S-1-5-21......-501'
-> rpcclient -U "guest%" <ip> -c 'lookupsids S-1-5-21......-502'
-# this can be automated 
-seq 400 2000 | xargs -P 50 -I {} rpcclient -U "guest%" <ip> -c 'lookupsids S-1-5-21......-{}'
 ```
 
 ### WinRM - 5985, 5986 (TLS)
