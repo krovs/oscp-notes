@@ -67,3 +67,11 @@ ssh2john id_rsa > ssh.hash
 ```shell
 fcrackzip -u -D -p <wordlist> <file>.zip
 ```
+
+## Cewl
+
+Create a dictionary out of a website.
+
+```shell
+cewl <url> -w <wordlist>
+```

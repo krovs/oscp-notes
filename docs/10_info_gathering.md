@@ -110,7 +110,7 @@ ssh username@<ip> -i <key>
 
 # bruteforce
 hydra ssh://<ip> -l <user> -P <wordlist> -s <port>
-patator ssh_login host=<ip> user=<user> password=FILE0 0=<wordlist> -x ignore:mesg='Authentication failed.'
+patator ssh_login host=<ip> user=<user> password=FILE0 0=<wordlist> --max-retries 0 --timeout 10 -x ignore:time=0-3
 ```
 
 ### SMTP - 25
@@ -472,7 +472,7 @@ evil-winrm -i <ip>/<domain> -u <user> -p <pass>
 evil-winrm -i <ip>/<domain> -u <user> -H <hash> 
 ```
 
-## Redis - 6379
+### Redis - 6379
 
 !!! tip
     🍪 [Rogue server](https://book.hacktricks.wiki/en/network-services-pentesting/6379-pentesting-redis.html?highlight=redis#interactive-shell) could work for some instances >= 5.0.5 too!

