@@ -56,7 +56,7 @@
 bash <(curl -s https://docs.sysreptor.com/install.sh)
 ```
 
-To add offsec templates to sysreptor:
+Adding offsec templates to sysreptor:
 
 ```shell
 cd sysreptor/deploy

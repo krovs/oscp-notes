@@ -46,9 +46,8 @@ Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction Si
 
 # search for docs in a user home directory
 Get-ChildItem -Path C:\Users\ -Include *.txt,*.xml,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
-Get-ChildItem -Path C:\users\divine -Recurse -Include "*.txt", "*.xml" -Force -File -ErrorAction SilentlyContinue
 # search in hidden directories too (-Force)
-Get-ChildItem -Path C:\Users\ -Include *.txt,*.xml -File -Recurse -Force -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\Users\ -Include *.txt, *.xml -File -Recurse -Force -ErrorAction SilentlyContinue
 ```
 
 ## Passwords

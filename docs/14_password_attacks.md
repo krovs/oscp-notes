@@ -75,3 +75,11 @@ Create a dictionary out of a website.
 ```shell
 cewl <url> -w <wordlist>
 ```
+
+## Wordlist generator
+
+> <https://github.com/Mebus/cupp>
+
+```shell
+cupp -i
+```
