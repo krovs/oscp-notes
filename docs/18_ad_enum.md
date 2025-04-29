@@ -2,6 +2,9 @@
 
 ## Capturing NTLMv2 Hashes
 
+!!! info
+    🐈‍⬛ Hashcat mode -> 5600
+
 ```shell
 # responder
 sudo responder -I eth0
