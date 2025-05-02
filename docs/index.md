@@ -66,6 +66,11 @@ curl -F "file=@C:\path\to\file.txt" http://<linux-ip>:<port> -u user:pass
 
 # copy to smb share
 copy C:\path\to\file \\<ip>\share
+
+# mount share before copy. (win 10+ w/o Authentication)
+net use Z: \\<ip>\share
+# mount share before copy. (win 10+ w/ Authentication)
+net use Z: \\<ip>\share /u:user 'pass'
 ```
 
 ### Downloading files on Linux

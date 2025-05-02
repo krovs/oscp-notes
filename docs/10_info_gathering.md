@@ -16,14 +16,18 @@
 ### Host Discovery
 
 ```shell
-for i in {1..254} ;do (ping -c 1 x.x.x.$i \| grep "bytes from" &) ;done # Linux
-for /L %i in (1 1 254) do ping x.x.x.%i -n 1 -w 100 \| find "Reply" # Windows
-1..254 \| % {"x.x.x.$($_): $(Test-Connection -count 1 -comp x.x.x.$($_) -quiet)"} # PowerShell
-
+# linux
 nmap -v -sn x.x.x.1-253
 nmap -sn x.x.x.0/24
 
-fping -asgq <IP>/<segment>
+for i in $(seq 1 254); do nc -zv -w 1 172.16.50.$i 445; done
+for ip in 192.168.1.{1..254}; do ping -c1 -W1 $ip &>/dev/null && echo "$ip is up"; done
+fping -a -g 192.168.1.1 192.168.1.254 2>/dev/null
+
+# windows cmd
+for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "Reply"
+# windows ps
+1..254 | % {"172.16.6.$($_): $(Test-Connection -count 1 -comp 172.16.6.$($_) -quiet)"}
 ```
 
 ### Port Scanning

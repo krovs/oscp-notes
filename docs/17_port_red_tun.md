@@ -4,8 +4,12 @@
 
 ```shell
 # linux
+nmap -v -sn x.x.x.1-253
+nmap -sn x.x.x.0/24
+
 for i in $(seq 1 254); do nc -zv -w 1 172.16.50.$i 445; done
-for i in {1..254} ;do (ping -c 1 172.16.5.$i | grep "bytes from" &) ;done
+for ip in 192.168.1.{1..254}; do ping -c1 -W1 $ip &>/dev/null && echo "$ip is up"; done
+fping -a -g 192.168.1.1 192.168.1.254 2>/dev/null
 
 # windows cmd
 for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "Reply"
