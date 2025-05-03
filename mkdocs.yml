@@ -30,7 +30,7 @@ theme:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: black
-      accent: amber
+      accent: pink
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
