@@ -5,7 +5,7 @@
 **🤖 Writeups**: [https://krovs.github.io/oscp-writeups](https://krovs.github.io/oscp-writeups/)
 
 <div align="center">
-    <img src=docs/assets/main.png>
+    <img src=docs/assets/banner.png>
 </div>
 
 ## 🦩 Notes

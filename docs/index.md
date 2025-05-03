@@ -3,7 +3,7 @@
 [📜 Writeups](https://krovs.github.io/oscp-writeups)
 
 <div align="center">
-    <img src=assets/main.png>
+    <img src=assets/banner.png>
 </div>
 
 ## Connecting to RDP
