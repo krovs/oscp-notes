@@ -33,6 +33,9 @@ Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" |
 # running process
 Get-Process
 Get-Process | Select-Object Name, Id, Path
+
+# get .NET version
+Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -Recurse
 ```
 
 ## Interesting Files

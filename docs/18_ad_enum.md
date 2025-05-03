@@ -5,12 +5,17 @@
 !!! info
     🐈‍⬛ Hashcat mode -> 5600
 
+> <https://github.com/Kevin-Robertson/Inveigh>
+
 ```shell
 # responder
 sudo responder -I eth0
 
 # smb server
 impacket-smbserver -smb2support <sharename> $(pwd)
+
+# windows privileged
+inveigh.exe -httpd <ip>
 ```
 
 ### UNC Attack
