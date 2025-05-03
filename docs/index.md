@@ -1,5 +1,9 @@
 # 🦩 General
 
+<div align="center">
+    <img src=assets/main.png>
+</div>
+
 ## File Transfers
 
 !!! tip
