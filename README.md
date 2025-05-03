@@ -1,12 +1,12 @@
 # OSCP/eCPPTv3 exam notes
 
+**🍕 Web version**: [https://krovs.github.io/oscp-notes](https://krovs.github.io/oscp-notes/)
+
 <div align="center">
     <img src=docs/assets/main.png>
 </div>
 
 ## 🦩 Notes
-
-**Web version**: [https://krovs.github.io/oscp-notes](https://krovs.github.io/oscp-notes/)
 
 - [🦩 General](docs/index.md)
 - [🔍 Information Gathering](docs/10_information_gathering.md)
@@ -68,3 +68,8 @@ cd sysreptor/deploy
 url="https://docs.sysreptor.com/assets/offsec-designs.tar.gz"
 curl -s "$url" | docker compose exec --no-TTY app python3 manage.py importdemodata --type=design
 ```
+
+-----------------------
+
+**Note**:
+🔒 All content is for educational purposes only. Always hack responsibly and with permission.
