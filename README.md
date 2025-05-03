@@ -38,6 +38,7 @@
 - [LainKusanagi list of OSCP like machines](https://docs.google.com/spreadsheets/d/18weuz_Eeynr6sXFQ87Cd5F0slOj9Z6rt)
   - [Proving Grounds Practice](https://portal.offsec.com/labs/practice)
   - [Hackthebox](https://app.hackthebox.com)
+  - [TryHackme](https://tryhackme.com)
 
 ## 📝 Reporting
 
