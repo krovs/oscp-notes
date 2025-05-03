@@ -1,5 +1,9 @@
 # OSCP/eCPPTv3 exam notes
 
+<div align="center">
+    <img src=docs/assets/main.png>
+</div>
+
 ## 🦩 Notes
 
 **Web version**: [https://krovs.github.io/oscp-notes](https://krovs.github.io/oscp-notes/)
