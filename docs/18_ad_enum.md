@@ -113,8 +113,9 @@ kerbrute passwordspray -d <domain> users.txt <password> --dc <dc_ip>
 # enum users via Kerberos
 kerbrute enumusers --dc <ip> -d <domain> <userlist>
 
-# LDAPnomnom
 ldapnomnom -dnsdomain <domain> -server <dc-ip> -input <wordlist>
+
+nxc smb <ip> -u <user> -p <pass> --users
 
 # windows
 .\Rubeus.exe brute /users:<userlist> /passwords:<wordlist> /domain:<domain>
