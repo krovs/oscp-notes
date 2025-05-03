@@ -1,8 +1,21 @@
-# 🦩 General
+# 🦩 Home
+
+[📜 Writeups](https://krovs.github.io/oscp-writeups)
 
 <div align="center">
     <img src=assets/main.png>
 </div>
+
+## Connecting to RDP
+
+```shell
+# add resolution support
+xfreerdp3 /u:user /p:pass /v:<ip> /dynamic-resolution
+# add clipboard support
+xfreerdp3 /u:user /p:pass /v:<ip> +clipboard
+# add a share to easily transfer files
+xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path>
+```
 
 ## File Transfers
 
@@ -83,17 +96,6 @@ net use Z: \\<ip>\share /u:user 'pass'
 # wget and curl
 wget http://<ip>:<port>/<file>
 curl -O http://<ip>:<port>/<file>
-```
-
-## Connecting to RDP
-
-```shell
-# add resolution support
-xfreerdp3 /u:user /p:pass /v:<ip> /dynamic-resolution
-# add clipboard support
-xfreerdp3 /u:user /p:pass /v:<ip> +clipboard
-# add a share to easily transfer files
-xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path>
 ```
 
 ## SSH

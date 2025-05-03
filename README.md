@@ -2,13 +2,15 @@
 
 **🍕 Web version**: [https://krovs.github.io/oscp-notes](https://krovs.github.io/oscp-notes/)
 
+**🤖 Writeups**: [https://krovs.github.io/oscp-writeups](https://krovs.github.io/oscp-writeups/)
+
 <div align="center">
     <img src=docs/assets/main.png>
 </div>
 
 ## 🦩 Notes
 
-- [🦩 General](docs/index.md)
+- [🦩 Home](docs/index.md)
 - [🔍 Information Gathering](docs/10_information_gathering.md)
 - [🕷️ Web Application Attacks](docs/11_web_attacks.md)
 - [🎣 Client-Side Attacks](docs/12_client-side_attacks.md)
