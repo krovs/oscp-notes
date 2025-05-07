@@ -53,72 +53,72 @@ curl "http://<ip>/index.php?page=data://text/plain,<?php%20echo%20system('uname%
 
 #### Interesting files
 
-**Linux Systems**
+=== "Linux"
 
-- `/home/<user>/.ssh/id_rsa`
-- `/etc/passwd`
-- `/etc/shadow`
-- `/etc/hosts`
-- `/etc/issue`
-- `/proc/version`
-- `/proc/cmdline`
-- `/proc/self/environ`
-- `/var/log/*`
-- `/var/log/auth.log`
-- `/var/log/secure`
-- `/var/log/syslog`
-- `/var/log/messages`
-- `/var/log/apache2/access.log`
-- `/var/log/nginx/access.log`
-- `/home/[user]/.bash_history`
-- `/var/www/html/`
-- `/opt/lampp/htdocs/`
-- `/etc/apache2/sites-available/*`
-- `/etc/nginx/sites-available/*`
-- `/etc/redis/redis.conf`
-- `/usr/local/etc/redis/redis.conf`
-- `/etc/mysql/my.cnf`
-- `/etc/my.cnf`
-- `/etc/postgresql/[version]/main/postgresql.conf`
-- `/etc/postgresql/[version]/main/pg_hba.conf`
-- `/etc/ssh/sshd_config`
-- `/etc/ssh/ssh_config`
-- `/etc/docker/daemon.json`
-- `/var/run/docker.sock`
-- `/etc/php/[version]/cli/php.ini`
-- `/etc/php/[version]/apache2/php.ini`
-- `/etc/mongod.conf`
+    - `/home/<user>/.ssh/id_rsa`
+    - `/etc/passwd`
+    - `/etc/shadow`
+    - `/etc/hosts`
+    - `/etc/issue`
+    - `/proc/version`
+    - `/proc/cmdline`
+    - `/proc/self/environ`
+    - `/var/log/*`
+    - `/var/log/auth.log`
+    - `/var/log/secure`
+    - `/var/log/syslog`
+    - `/var/log/messages`
+    - `/var/log/apache2/access.log`
+    - `/var/log/nginx/access.log`
+    - `/home/[user]/.bash_history`
+    - `/var/www/html/`
+    - `/opt/lampp/htdocs/`
+    - `/etc/apache2/sites-available/*`
+    - `/etc/nginx/sites-available/*`
+    - `/etc/redis/redis.conf`
+    - `/usr/local/etc/redis/redis.conf`
+    - `/etc/mysql/my.cnf`
+    - `/etc/my.cnf`
+    - `/etc/postgresql/[version]/main/postgresql.conf`
+    - `/etc/postgresql/[version]/main/pg_hba.conf`
+    - `/etc/ssh/sshd_config`
+    - `/etc/ssh/ssh_config`
+    - `/etc/docker/daemon.json`
+    - `/var/run/docker.sock`
+    - `/etc/php/[version]/cli/php.ini`
+    - `/etc/php/[version]/apache2/php.ini`
+    - `/etc/mongod.conf`
 
-**Windows Systems**
+=== "Windows"
 
-- `C:\Users\<user>\.ssh\id_rsa`
-- `C:\Windows\System32\drivers\etc\hosts`
-- `C:\boot.ini`
-- `C:\Windows\win.ini`
-- `C:\Windows\System32\config\SAM`
-- `C:\inetpub\wwwroot\`
-- `C:\Windows\php.ini`
-- `C:\inetpub\wwwroot\web.config`
-- `C:\xampp\passwords.txt`
-- `C:\xampp\apache\bin\php.ini`
-- `C:\xampp\apache\logs\access.log`
-- `C:\xampp\apache\logs\error.log`
-- `C:\xampp\apache\conf\httpd.conf`
-- `C:\xampp\filezillaftp\filezilla server.xml`
-- `C:\xampp\filezillaftp\logs`
-- `C:\xampp\filezillaftp\logs\access.log`
-- `C:\xampp\filezillaftp\logs\error.log`
-- `C:\xampp\mysql\data\mysql.err`
-- `C:\xampp\phpmyadmin\config.inc`
-- `C:\xampp\phpmyadmin\config.inc.php`
-- `C:\xampp\phpmyadmin\phpinfo.php`
+    - `C:\Users\<user>\.ssh\id_rsa`
+    - `C:\Windows\System32\drivers\etc\hosts`
+    - `C:\boot.ini`
+    - `C:\Windows\win.ini`
+    - `C:\Windows\System32\config\SAM`
+    - `C:\inetpub\wwwroot\`
+    - `C:\Windows\php.ini`
+    - `C:\inetpub\wwwroot\web.config`
+    - `C:\xampp\passwords.txt`
+    - `C:\xampp\apache\bin\php.ini`
+    - `C:\xampp\apache\logs\access.log`
+    - `C:\xampp\apache\logs\error.log`
+    - `C:\xampp\apache\conf\httpd.conf`
+    - `C:\xampp\filezillaftp\filezilla server.xml`
+    - `C:\xampp\filezillaftp\logs`
+    - `C:\xampp\filezillaftp\logs\access.log`
+    - `C:\xampp\filezillaftp\logs\error.log`
+    - `C:\xampp\mysql\data\mysql.err`
+    - `C:\xampp\phpmyadmin\config.inc`
+    - `C:\xampp\phpmyadmin\config.inc.php`
+    - `C:\xampp\phpmyadmin\phpinfo.php`
 
-**General Application Files (Platform Independent):**
+=== "Platform Independent"
 
-- `wp-config.php` (WordPress) - *check web root*
-- `.git/config` - *check web root or user directories*
-- `~/.kube/config` - *user home directory*
-- `~/.my.cnf` - *user home directory*
+    - `wp-config.php` (WordPress) - *check web root*
+    - `.git/config` - *check web root or user directories*
+    - `~/.kube/config` - *user home directory*
+    - `~/.my.cnf` - *user home directory*
 
 ### Remote
 

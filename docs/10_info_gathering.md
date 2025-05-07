@@ -15,20 +15,25 @@
 
 ### Host Discovery
 
-```shell
-# linux
-nmap -v -sn x.x.x.1-253
-nmap -sn x.x.x.0/24
+=== "Linux"
 
-for i in $(seq 1 254); do nc -zv -w 1 172.16.50.$i 445; done
-for ip in 192.168.1.{1..254}; do ping -c1 -W1 $ip &>/dev/null && echo "$ip is up"; done
-fping -a -g 192.168.1.1 192.168.1.254 2>/dev/null
+    ```shell
+    nmap -v -sn x.x.x.1-253
+    nmap -sn x.x.x.0/24
 
-# windows cmd
-for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "Reply"
-# windows ps
-1..254 | % {"172.16.6.$($_): $(Test-Connection -count 1 -comp 172.16.6.$($_) -quiet)"}
-```
+    for i in $(seq 1 254); do nc -zv -w 1 172.16.50.$i 445; done
+    for ip in 192.168.1.{1..254}; do ping -c1 -W1 $ip &>/dev/null && echo "$ip is up"; done
+    fping -a -g 192.168.1.1 192.168.1.254 2>/dev/null
+    ```
+
+=== "Windows"
+
+    ```shell
+    # cmd
+    for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "Reply"
+    # ps
+    1..254 | % {"172.16.6.$($_): $(Test-Connection -count 1 -comp 172.16.6.$($_) -quiet)"}
+    ```
 
 ### Port Scanning
 
@@ -213,6 +218,12 @@ patator http_fuzz url=<url> method=POST body='user=admin&pass=COMBO00&sublogin=1
 git-dumper <url>/.git ./website
 ```
 
+#### Subdomain Discovery
+
+```shell
+wfuzz -c --hh=230 -t 200 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -H "Host: FUZZ.domain.com" http://domain.com
+```
+
 #### Wordpress
 
 !!! info
@@ -373,6 +384,8 @@ telnet <ip> <port>
 ```
 
 ### SNMP - 161/udp
+
+> <https://github.com/SECFORCE/SNMP-Brute>
 
 ```shell
 # nmap UDP scan
