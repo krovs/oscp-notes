@@ -99,6 +99,9 @@ ftp <ip>
 # once inside upload/download files with
 put <file>
 get <file>
+# get all
+prompt OFF
+mget *
 
 # burteforce
 hydra ftp://<ip> -l <user> -P <wordlist>
