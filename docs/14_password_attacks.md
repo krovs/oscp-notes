@@ -6,7 +6,9 @@
 hashid <hash>
 ```
 
-## Hashcat
+## Cracking Hashes
+
+### Hashcat
 
 > [Hashcat module numbers](https://hashcat.net/wiki/doku.php?id=example_hashes)
 
@@ -21,7 +23,7 @@ hashcat -m <id> <hash> <wordlist> -r /usr/share/hashcat/rules/rockyou-3000.rule 
 hashcat -r demo.rule --stdout <wordlist>
 ```
 
-### Hashcat rule set
+#### Hashcat rule set
 
 ```shell
 $X   # Append character X
@@ -41,7 +43,7 @@ $    # Append a space
 ^    # Prepend a space
 ```
 
-## John
+### John
 
 > [John extractors](https://github.com/openwall/john/tree/bleeding-jumbo/run)
 
@@ -62,13 +64,31 @@ keepass2john file.kdbx > keepass.hash
 ssh2john id_rsa > ssh.hash
 ```
 
-## Zip files
+### Zip files
 
 ```shell
 fcrackzip -u -D -p <wordlist> <file>.zip
 ```
 
-## Cewl
+## Common Password Guessing Tactics
+
+| **Tactic**      | **Example**                          |
+| ----------- | ------------------------------------ |
+| Year/Number Iteration       | Change years (`Pass2023` -> `Pass2024`) or numbers (`Pass1` -> `Pass2`).  |
+| Username as Password       | `username:username` or variations (`Username123`, `username!`) |
+| Company/Service Name + Seasons/Suffix    | `CompanySpring24`, `Servicewinter`, `PasswordSummer25` |
+| Company/Service Name + Year/Suffix    | `CompanyName2024`, `ServiceName!`, `Acme123` |
+| Common Suffixes/Prefixes    | Add `!`, `@`, `#`, `123` to known words/usernames |
+| Default Credentials    | Always check for software/appliance defaults (`admin:admin`, `root:toor`) |
+| Simple/Common Passwords    | `password`, `welcome`, `test`, `123456`, `secret` |
+| Credential Reuse    | Try compromised credentials on other services |
+| Blank Passwords    | Attempt login with just the username |
+| Keyboard Patterns    | `qwerty`, `12345` |
+| Leetspeak    | Simple substitutions (`p@$$w0rd`) |
+
+## Wordlist generator
+
+### Cewl
 
 Create a dictionary out of a website.
 
@@ -76,7 +96,7 @@ Create a dictionary out of a website.
 cewl <url> -w <wordlist>
 ```
 
-## Wordlist generator
+### Cupp
 
 > <https://github.com/Mebus/cupp>
 
