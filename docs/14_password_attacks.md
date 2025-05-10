@@ -72,19 +72,19 @@ fcrackzip -u -D -p <wordlist> <file>.zip
 
 ## Common Password Guessing Tactics
 
-| **Tactic**      | **Example**                          |
-| ----------- | ------------------------------------ |
-| Year/Number Iteration       | Change years (`Pass2023` -> `Pass2024`) or numbers (`Pass1` -> `Pass2`).  |
-| Username as Password       | `username:username` or variations (`Username123`, `username!`) |
-| Company/Service Name + Seasons/Suffix    | `CompanySpring24`, `Servicewinter`, `PasswordSummer25` |
-| Company/Service Name + Year/Suffix    | `CompanyName2024`, `ServiceName!`, `Acme123` |
-| Common Suffixes/Prefixes    | Add `!`, `@`, `#`, `123` to known words/usernames |
-| Default Credentials    | Always check for software/appliance defaults (`admin:admin`, `root:toor`) |
-| Simple/Common Passwords    | `password`, `welcome`, `test`, `123456`, `secret` |
-| Credential Reuse    | Try compromised credentials on other services |
-| Blank Passwords    | Attempt login with just the username |
-| Keyboard Patterns    | `qwerty`, `12345` |
-| Leetspeak    | Simple substitutions (`p@$$w0rd`) |
+| **Tactic**                               | **Example**                                                               |
+| ---------------------------------------- | ------------------------------------------------------------------------- |
+| Year/Number Iteration                    | Change years (`Pass2023` -> `Pass2024`) or numbers (`Pass1` -> `Pass2`).  |
+| Username as Password                     | `username:username` or variations (`Username123`, `username!`)            |
+| Company/Service Name + Seasons/Suffix    | `CompanySpring24`, `Servicewinter`, `PasswordSummer25`                    |
+| Company/Service Name + Year/Suffix       | `CompanyName2024`, `ServiceName!`, `Acme123`                              |
+| Common Suffixes/Prefixes                 | Add `!`, `@`, `#`, `123` to known words/usernames                         |
+| Default Credentials                      | Always check for software/appliance defaults (`admin:admin`, `root:toor`) |
+| Simple/Common Passwords                  | `password`, `welcome`, `test`, `123456`, `secret`                         |
+| Credential Reuse                         | Try compromised credentials on other services                             |
+| Blank Passwords                          | Attempt login with just the username                                      |
+| Keyboard Patterns                        | `qwerty`, `12345`                                                         |
+| Leetspeak                                | Simple substitutions (`p@$$w0rd`)                                         |
 
 ## Wordlist generator
 
