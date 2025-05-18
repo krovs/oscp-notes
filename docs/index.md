@@ -248,6 +248,10 @@ ltrace
     # find text in files
     findstr /s "text" * 2>nul
     Select-String -Path *.txt -Pattern "text" -ErrorAction SilentlyContinue
+    # search for a string in all files
+    Get-ChildItem -Path C:\ -Recurse -File -Force -ErrorAction SilentlyContinue | Select-String -Pattern "password" -ErrorAction SilentlyContinue
+    # search for a string in specific files
+    Get-ChildItem -Path C:\ -Recurse -File -Force -Include "*.txt","*.config","*.json" -ErrorAction SilentlyContinue | Select-String -Pattern "password" -ErrorAction SilentlyContinue
 
     # copy dirs recursively
     xcopy /s /e source destination /Y 2>nul

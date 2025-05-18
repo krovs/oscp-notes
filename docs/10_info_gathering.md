@@ -100,8 +100,7 @@ ftp <ip>
 put <file>
 get <file>
 # get all
-prompt OFF
-mget *
+wget -m ftp://anonymous:anonymous@<ip>
 
 # burteforce
 hydra ftp://<ip> -l <user> -P <wordlist>
