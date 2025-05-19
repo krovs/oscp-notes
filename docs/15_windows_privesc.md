@@ -159,10 +159,13 @@ impacket-secretsdump administrator@<target_ip>
 
 ## Automated Scripts
 
-- [winPEASany.exe](https://github.com/peass-ng/PEASS-ng)
-- PowerUp.ps1
-- SharpUp.exe
-- Seatbelt.exe
+> [winPEASany.exe](https://github.com/peass-ng/PEASS-ng)
+
+> PowerUp.ps1
+
+> [SharpUp.exe](https://github.com/r3motecontrol/Ghostpack-CompiledBinaries)
+
+> [Seatbelt.exe](https://github.com/r3motecontrol/Ghostpack-CompiledBinaries)
 
 ## Services
 
@@ -338,9 +341,11 @@ whoami /priv
 
 ### SeImpersonatePrivilege
 
-- <https://github.com/BeichenDream/GodPotato>
-- <https://github.com/antonioCoco/JuicyPotatoNG>
-- <https://github.com/itm4n/PrintSpoofer>
+> <https://github.com/BeichenDream/GodPotato>
+
+> <https://github.com/antonioCoco/JuicyPotatoNG>
+
+> <https://github.com/itm4n/PrintSpoofer>
 
 ```shell
 # GodPotato

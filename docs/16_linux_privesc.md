@@ -213,8 +213,9 @@ searchsploit <name>
 
 ## Automated Scripts
 
-- [linPEAS.sh](https://github.com/peass-ng/PEASS-ng?tab=readme-ov-file)
-- [Liinux Exploit Suggester 2](https://github.com/jondonas/linux-exploit-suggester-2)
+> [linPEAS.sh](https://github.com/peass-ng/PEASS-ng?tab=readme-ov-file)
+
+> [Liinux Exploit Suggester 2](https://github.com/jondonas/linux-exploit-suggester-2)
 
 ## NFS
 

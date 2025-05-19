@@ -238,6 +238,11 @@ ltrace
     # compress/extract files
     tar -czvf archive.tar.gz /path
     tar -xzvf archive.tar.gz
+
+    # find a program
+    which <program>
+    whereis <program>
+    locate <program>
     ```
 
 === "Windows"
@@ -252,6 +257,10 @@ ltrace
     Get-ChildItem -Path C:\ -Recurse -File -Force -ErrorAction SilentlyContinue | Select-String -Pattern "password" -ErrorAction SilentlyContinue
     # search for a string in specific files
     Get-ChildItem -Path C:\ -Recurse -File -Force -Include "*.txt","*.config","*.json" -ErrorAction SilentlyContinue | Select-String -Pattern "password" -ErrorAction SilentlyContinue
+
+    # find a program
+    where /R <path> <program.exe>
+    Get-ChildItem -Path C:\ -Filter <program.exe> -Recurse -ErrorAction SilentlyContinue
 
     # copy dirs recursively
     xcopy /s /e source destination /Y 2>nul
