@@ -120,11 +120,10 @@ sequenceDiagram
     KDC-->>A: TGS-REP (service ticket)
     A->>S: AP-REQ (with forged service ticket and authenticator)
     S-->>A: AP-REP (access granted)
-
 ```
 
 ```shell
-# windows
+# Windows
 # delete existing tickets
 kerberos::purge
 
