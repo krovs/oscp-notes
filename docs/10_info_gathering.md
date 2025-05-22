@@ -3,11 +3,11 @@
 ## Passive
 
 - **Whois**: `whois <domain/ip> -h <whois_server>`
-- **Google dorks**: `site:` , `filetype:`,  `intitle:`, [DorkSearch](https://dorksearch.com/) or [GHDB](https://www.exploit-db.com/google-hacking-database)
+- **Google dorks**: `site:`, `filetype:`, `intitle:`, [DorkSearch](https://dorksearch.com/) or [GHDB](https://www.exploit-db.com/google-hacking-database)
 - [**Netcraft**](https://searchdns.netcraft.com/): DNS analyzer
 - **Open-Source code**:
-  - `path:<word>` inside a Github repo to search files with that word.
-  - Tools: [Gitrob](https://github.com/michenriksen/gitrob), [Gitlkeaks](https://github.com/zricethezav/gitleaks)
+  - `path:<word>` inside a GitHub repo to search files with that word.
+  - Tools: [Gitrob](https://github.com/michenriksen/gitrob), [Gitleaks](https://github.com/zricethezav/gitleaks)
 - [**Shodan**](https://shodan.io): `hostname:<name>`
 - **Security headers**: [Security Headers](https://securityheaders.com/), [SSL Server Test](https://www.ssllabs.com/ssltest/)
 
@@ -32,7 +32,7 @@
     # cmd
     for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "Reply"
     # ps
-    1..254 | % {"172.16.6.$($_): $(Test-Connection -count 1 -comp 172.16.6.$($_) -quiet)"}
+    1..254 | % {"172.16.6.$($_): $(Test-Connection -Count 1 -ComputerName 172.16.6.$($_) -Quiet)"}
     ```
 
 ### Port Scanning
@@ -74,19 +74,19 @@ nmap -sV -p 445 --script smb-ls <ip>
 #### Unknown Service
 
 ```shell
-# when a port is unrecognized try
+# when a port is unrecognized, try
 telnet <ip> <port>
 nc -v <ip> <port>
 curl -v http://<target>:<port>
 
-# the machine name can provide a clue about the unknown service, try searching for the port and the name 
+# the machine name can provide a clue about the unknown service; try searching for the port and the name 
 ```
 
 ### Packet Capture
 
 ```shell
 # capture packets going to port 80
-tshark -i tun0 -Y "ip.addr == <local_ip> && tcpdstport == 80" 2>/dev/null
+tshark -i tun0 -Y "ip.addr == <local_ip> && tcp.dstport == 80" 2>/dev/null
 ```
 
 ### FTP - 21
@@ -96,13 +96,13 @@ tshark -i tun0 -Y "ip.addr == <local_ip> && tcpdstport == 80" 2>/dev/null
 
 ```shell
 ftp <ip>
-# once inside upload/download files with
+# once inside, upload/download files with
 put <file>
 get <file>
 # get all
 wget -m ftp://anonymous:anonymous@<ip>
 
-# burteforce
+# bruteforce
 hydra ftp://<ip> -l <user> -P <wordlist>
 patator ftp_login host=<ip> user=FILE0 password=FILE1 0=<userlist> 1=<wordlist> -x ignore:mesg='Login incorrect.' -x ignore,reset,retry:code=500
 

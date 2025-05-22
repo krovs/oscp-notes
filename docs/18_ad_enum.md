@@ -43,7 +43,7 @@ net group <groupname> <username> /add /domain
 # list a share
 ls \\dc1.corp.com\sysvol\corp.com\
 
-# password policies
+# password policy
 net accounts /domain
 
 # get current domain name
@@ -71,14 +71,14 @@ Get-NetGroup <groupcn> | select member
 Get-NetComputer
 Get-NetComputer | select operatingsystem,dnshostname
 
-# find local admin access under current user
+# find local admin access for the current user
 Find-LocalAdminAccess
 # see who is logged on
 Get-NetSession -ComputerName <computer>
-# if fails, use psloggedon.exe, needs Remote Registry active on host
+# if it fails, use psloggedon.exe; needs Remote Registry active on host
 PsLoggedon.exe \\<computer>
 
-# list spn
+# list SPNs
 Get-NetUser -SPN | select samaccountname,serviceprincipalname
 # or
 setspn -L iis_service
@@ -199,16 +199,29 @@ gpp-decrypt <pass>
 
 ## BloodHound
 
+> [Installation](https://bloodhound.specterops.io/get-started/quickstart/community-edition-quickstart)
+
 ```shell
+# first time start
+./bloodhound-cli install
+# reset password
+./bloodhound-cli resetpwd
+# restart containers
+./bloodhound-cli containers restart
+# stop containers
+./bloodhound-cli containers stop
+
+# legacy
 sudo neo4j start
 bloodhound
-# upload collected zip 
 ```
 
 ### SharpHound
 
 !!! warning
-    For Bloodhound legacy (4.3.1) compatibility, use sharphound [v1.1.1.1](https://github.com/SpecterOps/SharpHound/releases/tag/v1.1.1)
+    For BloodHound legacy (4.3.1) compatibility, use SharpHound [v1.1.1.1](https://github.com/SpecterOps/SharpHound/releases/tag/v1.1.1)
+
+> <https://github.com/SpecterOps/SharpHound>
 
 ```shell
 .\SharpHound.exe -c All
@@ -217,9 +230,14 @@ Import-Module .\SharpHound.ps1
 Invoke-BloodHound -CollectionMethod All -OutputDirectory . -OutputPrefix "dom audit"
 ```
 
-### bloodhound-python
+### bloodhound-ce-python
+
+> `pipx install bloodhound-ce`
 
 ```shell
+bloodhound-ce-python -c All -u <user> -p <pass> -d <domain> -dc <dc_hostname> -ns <ns_ip> --zip 
+
+# legacy
 bloodhound-python -c All -u <user> -p <pass> -d <domain> -dc <dc_hostname> -ns <ns_ip> --zip 
 ```
 

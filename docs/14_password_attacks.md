@@ -86,11 +86,11 @@ fcrackzip -u -D -p <wordlist> <file>.zip
 | Keyboard Patterns                        | `qwerty`, `12345`                                                         |
 | Leetspeak                                | Simple substitutions (`p@$$w0rd`)                                         |
 
-## Wordlist generator
+## Wordlist Generator
 
 ### Cewl
 
-Create a dictionary out of a website.
+Create a wordlist from a website.
 
 ```shell
 cewl <url> -w <wordlist>
