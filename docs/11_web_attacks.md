@@ -68,6 +68,9 @@ curl "http://<ip>/index.php?page=data://text/plain,<?php%20echo%20system('uname%
 #### Interesting files
 
 !!! tip
+    📜 Recommended wordlists: /usr/share/seclists/Fuzzing/LFI
+
+!!! tip
     🍪 Try to run the service locally (docker) to see interesting files and paths.
 
 === "Linux"
