@@ -50,6 +50,9 @@ $    # Append a space
 ```shell
 john <hash> --wordlist=<wordlist>
 
+# show subformats
+john --list=subformats
+
 # to use rules add them to /etc/john/john.conf with a header
 [List.Rules:sshRules]
 c $1 $3 $7 $!

@@ -29,9 +29,8 @@ xfreerdp3 /u:user /p:pass /v:<ip> /drive:<name>,<path>
 ```shell
 # simple python server
 python -m http.server <port>
-# simple Python upload-enabled server (optional basic auth)
-pip install uploadserver
-python -m uploadserver --basic-auth user:pass <port>
+# raven upload service
+raven 0.0.0.0 443
 
 # WebDAV server
 wsgidav -H 0.0.0.0 -p 80 --auth anonymous -r .

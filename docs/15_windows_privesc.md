@@ -58,6 +58,19 @@ Get-ChildItem -Path C:\ -Recurse -File -Force -ErrorAction SilentlyContinue | Se
 Get-ChildItem -Path C:\ -Recurse -File -Force -Include "*.txt","*.config","*.json" -ErrorAction SilentlyContinue | Select-String -Pattern "password" -ErrorAction SilentlyContinue
 ```
 
+### Recycle Bin
+
+```powershell
+# list files in recycle bin
+(New-Object -ComObject Shell.Application).NameSpace(0x0a).Items()
+
+# save path to file
+$pathFile = (New-Object -ComObject Shell.Application).Namespace(0x0a).Items() | Select -ExpandProperty Path
+
+# copy all files
+cp $pathFile .
+```
+
 ## Passwords
 
 ### PowerShell History
