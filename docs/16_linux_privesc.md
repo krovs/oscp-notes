@@ -1,5 +1,8 @@
 # 🐧 Linux Privesc
 
+!!! info ""
+    [HackTricks](https://book.hacktricks.wiki/en/linux-hardening/privilege-escalation/index.html) 🔸 [InternalAllTheThings](https://swisskyrepo.github.io/InternalAllTheThings/redteam/escalation/linux-privilege-escalation/)
+
 ## Enumeration
 
 ```shell

@@ -1,5 +1,8 @@
 # 📎 Windows Privesc
 
+!!! info ""
+    [HackTricks](https://book.hacktricks.wiki/en/windows-hardening/windows-local-privilege-escalation/index.html) 🔸 [InternalAllTheThings](https://swisskyrepo.github.io/InternalAllTheThings/redteam/escalation/windows-privilege-escalation/)
+
 ## Enumeration
 
 ```shell
