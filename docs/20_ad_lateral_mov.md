@@ -201,6 +201,9 @@ impacket-secretsdump -ntds ntds.dit -system system LOCAL
 
 ## NTLM Relay
 
+!!! warning ""
+    Poisoning and Spoofing is not allowed on the OSCP exam
+
 !!! info
     SMB signing on the target system must be **disabled**
 

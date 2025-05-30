@@ -345,7 +345,7 @@ SQL> xp_cmdshell whoami
 ### Automated Code Execution
 
 !!! warning ""
-    Not allowed in OSCP exam
+    Not allowed on the OSCP exam
 
 ```shell
 sqlmap -u http://<ip>/blindsqli.php?user=1 -p user

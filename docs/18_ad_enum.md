@@ -5,6 +5,9 @@
 !!! info
     🐈‍⬛ Hashcat mode -> 5600
 
+!!! warning ""
+    Poisoning and Spoofing is not allowed on the OSCP exam
+
 > <https://github.com/Kevin-Robertson/Inveigh>
 
 ```shell
