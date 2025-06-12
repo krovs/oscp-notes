@@ -125,6 +125,11 @@ upx <bin_path>
 # find printable strings in a file
 strings
 
+# extract files from a binary
+binwalk <bin_path>
+binwalk -e <bin_path>
+
+
 # display dynamic library calls of a process, perfect for binary hijacking
 ltrace
 ```
@@ -317,6 +322,8 @@ ltrace
     # list listening connections
     ss -ntplu
     netstat -ntplu
+    # show processes listening on a port
+    lsof :i<port>
     # test connectivity
     ping host
     # trace path

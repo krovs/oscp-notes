@@ -126,7 +126,7 @@ sudo -l
 
 A SUID executable can be exploited due to it inheriting the user's PATH environment variable and attempting to execute programs without specifying an absolute path.
 
-Run **strings** on the file to look for strings of printable characters:
+Run `strings` on the file to look for strings of printable characters or `ltrace` to look for system calls.
 
 ```shell
 strings <suidexecutable>
@@ -154,7 +154,7 @@ A SUID executable can be vulnerable to shared object injection.
 
 First, execute the file and notice the missing object error.
 
-If there is no feedback, run **strace** on the file and search the output for open/access calls and for **no such file** errors:
+If there is no feedback, run `strace` on the file and search the output for open/access calls and for **no such file** errors:
 
 ```shell
 strace suid-so 2>&1 | grep -iE "open|access|no such file"
