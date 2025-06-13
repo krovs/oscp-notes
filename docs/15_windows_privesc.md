@@ -44,6 +44,9 @@ Get-ChildItem 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP' -Recurse
 ## Interesting Files
 
 ```powershell
+# search for files recursively and alternate data streams
+dir /r /s <name>.txt
+
 # search for password manager dbs
 Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
 
@@ -176,11 +179,18 @@ impacket-secretsdump administrator@<target_ip>
 
 > [winPEASany.exe](https://github.com/peass-ng/PEASS-ng)
 
-> PowerUp.ps1
+> [PowerUp.ps1](https://github.com/PowerShellMafia/PowerSploit/blob/master/Privesc/PowerUp.ps1)
 
 > [SharpUp.exe](https://github.com/r3motecontrol/Ghostpack-CompiledBinaries)
 
 > [Seatbelt.exe](https://github.com/r3motecontrol/Ghostpack-CompiledBinaries)
+
+```shell
+.\winPEASany.exe
+
+Import-Module .\PowerUp.ps1
+Invoke-AllChecks
+```
 
 ## Services
 
