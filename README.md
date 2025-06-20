@@ -1,4 +1,4 @@
-# OSCP/eCPPTv3 exam notes
+# OSCP & eCPPTv3 Exam Notes
 
 **🍕 Web version**: [https://krovs.github.io/oscp-notes](https://krovs.github.io/oscp-notes/)
 
