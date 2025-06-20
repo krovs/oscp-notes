@@ -1,4 +1,4 @@
-# OSCP & eCPPTv3 Exam Notes
+# ⚔️ OSCP & eCPPTv3 Exam Notes
 
 **🍕 Web version**: [https://krovs.github.io/oscp-notes](https://krovs.github.io/oscp-notes/)
 
@@ -31,20 +31,20 @@
   - [Introduction to AD](https://academy.hackthebox.com/module/details/74)
   - [Active Directory Enumeration and Attacks](https://academy.hackthebox.com/module/details/143)
 - PortSwigger Academy:
-  - [Error-Based and Unioin-Based SQL Injection](https://portswigger.net/web-security/sql-injection)
+  - [Error-Based and Union-Based SQL Injection](https://portswigger.net/web-security/sql-injection)
   - [Stored, Reflected and DOM-Based Cross-Site Scripting](https://portswigger.net/web-security/cross-site-scripting)
   - [Command Injection](https://portswigger.net/web-security/command-injection)
 - TryHackme:
-  - [Linux PrivEsc room](https://tryhackme.com/r/room/linuxprivesc)
-  - [Windows PrivEsc room](https://tryhackme.com/r/room/windows10privesc)
+  - [Linux PrivEsc Room](https://tryhackme.com/r/room/linuxprivesc)
+  - [Windows PrivEsc Room](https://tryhackme.com/r/room/windows10privesc)
 
 ## 🤖 Machines
 
 - [PWK Challenges](https://portal.offsec.com/courses/pen-200-44065/labs)
-- [LainKusanagi list of OSCP like machines](https://docs.google.com/spreadsheets/d/18weuz_Eeynr6sXFQ87Cd5F0slOj9Z6rt)
+- [LainKusanagi's List of OSCP-like Machines](https://docs.google.com/spreadsheets/d/18weuz_Eeynr6sXFQ87Cd5F0slOj9Z6rt)
   - [Proving Grounds Practice](https://portal.offsec.com/labs/practice)
-  - [Hackthebox](https://app.hackthebox.com)
-  - [TryHackme](https://tryhackme.com)
+  - [HackTheBox](https://app.hackthebox.com)
+  - [TryHackMe](https://tryhackme.com)
 
 ## 📝 Reporting
 
