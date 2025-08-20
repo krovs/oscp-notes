@@ -9,14 +9,14 @@
 ## 🦩 Notes
 
 - [🦩 Home](docs/index.md)
-- [🔍 Information Gathering](docs/10_information_gathering.md)
+- [🔍 Information Gathering](docs/10_info_gathering.md)
 - [🕷️ Web Application Attacks](docs/11_web_attacks.md)
 - [🎣 Client-Side Attacks](docs/12_client-side_attacks.md)
 - [💣 Exploitation](docs/13_exploitation.md)
-- [📃 Password Attacks](docs/14_passwords_attacks.md)
+- [📃 Password Attacks](docs/14_password_attacks.md)
 - [📎 Windows Privilege Escalation](docs/15_windows_privesc.md)
 - [🐧 Linux Privilege Escalation](docs/16_linux_privesc.md)
-- [🚢 Port Redirection and Tunneling](docs/17_port_redirection_tunneling.md)
+- [🚢 Port Redirection and Tunneling](docs/17_port_red_tun.md)
 - [🔭 AD Enumeration](docs/18_ad_enum.md)
 - [⚔️ AD Exploitation](docs/19_ad_exploitation.md)
 - [🏹 AD Lateral Movement](docs/20_ad_lateral_mov.md)
